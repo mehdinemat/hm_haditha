@@ -5,8 +5,8 @@ import { extendTheme } from '@chakra-ui/react'
 const customTheme = extendTheme({
   direction: 'rtl',  // set default direction in theme as well
   fonts: {
-    heading: `'Inter', sans-serif`,
-    body: `'Inter', sans-serif`,
+    heading: `'Estedad', sans-serif`,
+    body: `'Estedad', sans-serif`,
   },
   components: {
     Button: {

@@ -1,7 +1,7 @@
 import { Box, Container } from '@chakra-ui/react'
 import Header from './Header'
 import { Outlet } from 'react-router-dom'
-
+import Footer from './Footer'
 const Layout = ({ children }) => {
   return (
     <Box backgroundImage="url('/bg.png')"
@@ -11,10 +11,9 @@ const Layout = ({ children }) => {
       <Header />
       <Box >
         {/* Ensure content doesn't go under the fixed header */}
-        <Container maxW="container.lg">
-          <Outlet />
-        </Container>
+        <Outlet />
       </Box>
+      <Footer />
     </Box>
   )
 }

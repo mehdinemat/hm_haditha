@@ -1,18 +1,62 @@
+@font-face {
+  font-family: 'Estedad';
+  src: url('/fonts/estedad.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+body {
+  font-family: 'Estedad ', sans-serif;
+}
+
+/* .leaflet-control-zoom {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  top: 10px !important;
+  right: 10px !important;
+}
+
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out {
+  background-color: #2f855a !important;
+  color: white !important;
+  border: none !important;
+  width: 40px !important;
+  height: 40px !important;
+  font-size: 20px !important;
+  line-height: 38px !important;
+  border-radius: 6px !important;
+  text-align: center !important;
+  transition: background 0.2s !important;
+}
+
+.leaflet-control-zoom-in:hover,
+.leaflet-control-zoom-out:hover {
+  background-color: #276749; 
+} */
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
+  width: 100%;
+direction: rtl;
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+#root{
+  width: 100%;
+}
 a {
   font-weight: 500;
   color: #646cff;
@@ -28,7 +72,6 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-  direction: 'rtl';
 }
 
 h1 {

@@ -21,23 +21,49 @@ const Header = () => {
       top="8px"
       left="50%"
       transform="translateX(-50%)"
-      w="60%"              // ✅ Entire header is 60% wide
+      w="60%"
+      height={'68px'}            // ✅ Entire header is 60% wide
       zIndex="sticky"
       bg="white"
       border={'0.3px'}
       boxShadow="0px 4px 15px 0px #0000001A"
       py={4}
       px={'16px'}
+
       borderRadius="16px"    // optional: rounded corners
     >
       <Flex justify="space-between" align="center" >
         <Flex gap={4} >
           {
             menuList?.map((item) => (
-              <HStack bg="linear-gradient(102.02deg, #4BE8AE 7.38%, #00A762 91.78%)" borderRadius={'12px'}
+              <HStack
+                role="group"
+                bgColor="none"
+                _hover={{
+                  bg: "linear-gradient(102.02deg, #3FD797 10%, #009953 85%)",
+                  color: 'white',
+                }}
+                _active={{
+                  bg: "linear-gradient(102.02deg, #38C68A 10%, #00814B 85%)",
+                }}
+                borderRadius="12px"
+                color="black" // default color
+                cursor={'pointer'}
               >
-                {item?.title && <Text >{item?.title}</Text>}
-                <IconButton color={'white'} icon={item?.icon} variant={'ghost'} />
+                <IconButton
+                  icon={item?.icon}
+                  variant="ghost"
+                  fontSize="20px"
+                  _hover={{ bgColor: 'none' , border:'none' }} // prevents its own hover
+                  _groupHover={{ color: 'white' }} // this makes it white when HStack is hovered
+                  color="inherit"
+
+                />
+                {item?.title && (
+                  <Text _groupHover={{ color: 'white' }} pl={'5px'} color="inherit">
+                    {item.title}
+                  </Text>
+                )}
               </HStack>
             ))
           }
