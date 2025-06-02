@@ -1,4 +1,4 @@
-import { Box, Flex, Text, Button, HStack, IconButton } from '@chakra-ui/react'
+import { Box, Flex, Text, Button, HStack, IconButton, VStack, Container } from '@chakra-ui/react'
 import { CiSearch } from "react-icons/ci";
 import { IoBookOutline } from "react-icons/io5";
 import { MdVoiceChat } from "react-icons/md";
@@ -16,10 +16,12 @@ const menuList = [
 
 const Header = () => {
     return (
-        <Box h={'48px'} bgColor={'#1B2132'}>
-            <Text color={'white'} fontWeight={'300'} fontSize={'14px'}>© تمام حقوق اين وب‌سايت نیز برای مؤسسه هوش مصنوعی و تمدن اسلامی (همتا) است.</Text>
-            <Text color={'white'}>طراحی شده توسط استودیو نیوا</Text>
-        </Box>
+        <HStack alignItems={'center'} h={'48px'} bgColor={'#1B2132'} gap={0} w={'100%'} justifyContent={'space-between'}>
+            <Container as={HStack} maxW="container.xl" justifyContent={'space-between'}>
+                <Text color={'white'} fontWeight={'300'} fontSize={'13px'}>© تمام حقوق اين وب‌سايت نیز برای مؤسسه هوش مصنوعی و تمدن اسلامی (همتا) است.</Text>
+                <Text color={'white'} fontWeight={'300'} fontSize={'13px'}>طراحی شده توسط استودیو نیوا</Text>
+            </Container>
+        </HStack>
     )
 }
 

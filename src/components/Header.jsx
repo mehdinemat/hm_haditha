@@ -1,4 +1,4 @@
-import { Box, Flex, Text, Button, HStack, IconButton } from '@chakra-ui/react'
+import { Box, Flex, Text, Button, HStack, IconButton, Menu, MenuList, MenuDivider, MenuItem, MenuButton } from '@chakra-ui/react'
 import { CiSearch } from "react-icons/ci";
 import { IoBookOutline } from "react-icons/io5";
 import { MdVoiceChat } from "react-icons/md";
@@ -29,7 +29,6 @@ const Header = () => {
       boxShadow="0px 4px 15px 0px #0000001A"
       py={4}
       px={'16px'}
-
       borderRadius="16px"    // optional: rounded corners
     >
       <Flex justify="space-between" align="center" >
@@ -54,7 +53,7 @@ const Header = () => {
                   icon={item?.icon}
                   variant="ghost"
                   fontSize="20px"
-                  _hover={{ bgColor: 'none' , border:'none' }} // prevents its own hover
+                  _hover={{ bgColor: 'none', border: 'none' }} // prevents its own hover
                   _groupHover={{ color: 'white' }} // this makes it white when HStack is hovered
                   color="inherit"
 
@@ -69,7 +68,17 @@ const Header = () => {
           }
         </Flex>
         <HStack>
-          <IconButton icon={<AiOutlineMenu />} variant={'ghost'} />
+          <Menu>
+            <IconButton as={MenuButton} icon={<AiOutlineMenu />} variant={'ghost'} />
+
+            <MenuList>
+              <MenuItem onClick={() => alert("Profile clicked")}>Profile</MenuItem>
+              <MenuItem>Settings</MenuItem>
+              <MenuItem>Billing</MenuItem>
+              <MenuDivider />
+              <MenuItem color="red.500">Log out</MenuItem>
+            </MenuList>
+          </Menu>
           <IconButton icon={<IoBookmarksOutline />} variant={'ghost'} />
         </HStack>
       </Flex>
