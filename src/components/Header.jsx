@@ -5,16 +5,26 @@ import { MdVoiceChat } from "react-icons/md";
 import { GoHome } from "react-icons/go";
 import { IoBookmarksOutline } from "react-icons/io5";
 import { AiOutlineMenu } from "react-icons/ai";
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 
 const menuList = [
-  { title: '', icon: <GoHome /> },
-  { title: 'جستجو', icon: <CiSearch /> },
-  { title: 'کتابخانه', icon: <IoBookOutline /> },
-  { title: 'چت بات', icon: <MdVoiceChat /> },
+  { title: '', icon: <GoHome />, link: '/' },
+  { title: 'جستجو', icon: <CiSearch />, link: '/search' },
+  { title: 'کتابخانه', icon: <IoBookOutline />, link: '/library' },
+  { title: 'چت بات', icon: <MdVoiceChat />, link: '/chatbot' },
 ]
 
 const Header = () => {
+
+  const navigate = useNavigate()
+  const location = useLocation()
+  const handleLinkClick = (link) => {
+    navigate(link)
+  }
+
+
   return (
     <Box
       position="fixed"
@@ -36,8 +46,9 @@ const Header = () => {
           {
             menuList?.map((item) => (
               <HStack
+                onClick={e => handleLinkClick(item?.link)}
                 role="group"
-                bgColor="none"
+                bg={location?.pathname == item?.link ? 'linear-gradient(102.02deg, #4BE8AE 7.38%, #00A762 91.78%)' : "none"}
                 _hover={{
                   bg: "linear-gradient(102.02deg, #3FD797 10%, #009953 85%)",
                   color: 'white',

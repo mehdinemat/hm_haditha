@@ -6,6 +6,8 @@ import Search from './pages/Search'
 import Bookmarks from './pages/Bookmarks'
 import Library from './pages/Library'
 import LibraryItem from './pages/LibraryItem'
+import Hadith from './pages/Hadith'
+import LayoutHadith from './components/HadithSearch'
 function App() {
   return (
     <BrowserRouter>
@@ -17,6 +19,9 @@ function App() {
           <Route path="/library/:id" element={<LibraryItem />} />
 
           {/* Add more routes here */}
+        </Route>
+        <Route element={<LayoutHadith />}>
+          <Route path="/hadith" element={<Hadith />} />
         </Route>
         <Route element={<LayoutSearch />}>
           <Route path="/search" element={<Search />} />
