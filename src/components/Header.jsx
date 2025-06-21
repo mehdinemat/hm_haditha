@@ -56,6 +56,8 @@ const Header = () => {
                 _active={{
                   bg: "linear-gradient(102.02deg, #38C68A 10%, #00814B 85%)",
                 }}
+                _focusVisible={{ outline: 'none' }}
+
                 borderRadius="12px"
                 color="black" // default color
                 cursor={'pointer'}
@@ -64,10 +66,11 @@ const Header = () => {
                   icon={item?.icon}
                   variant="ghost"
                   fontSize="20px"
-                  _hover={{ bgColor: 'none', border: 'none' }} // prevents its own hover
-                  _groupHover={{ color: 'white' }} // this makes it white when HStack is hovered
-                  color="inherit"
-
+                  _hover={{
+                    bg: "linear-gradient(102.02deg, #3FD797 10%, #009953 85%)",
+                    color: 'white',
+                  }}
+                  _focusVisible={{ outline: 'none' }}
                 />
                 {item?.title && (
                   <Text _groupHover={{ color: 'white' }} pl={'5px'} color="inherit">

@@ -16,13 +16,12 @@ const menuList = [
 ]
 const HeaderSearch = () => {
 
+  
   const navigate = useNavigate()
   const location = useLocation()
   const handleLinkClick = (link) => {
     navigate(link)
   }
-
-
 
   return (
     <Stack w={'100%'} height={'180px'}

@@ -1,15 +1,25 @@
 import { Box, Center, IconButton, Input, InputGroup, InputLeftAddon, InputLeftElement, InputRightAddon, InputRightElement } from '@chakra-ui/react'
-import React from 'react'
+import React, { useState } from 'react'
 import { IoAdd, IoSearch } from 'react-icons/io5'
 import { CiSearch } from "react-icons/ci";
+import { useNavigate } from 'react-router-dom';
 
 const SearchBox2 = () => {
+
+  const navigate = useNavigate()
+
+  const [query, setQuery] = useState('')
+
+  const handleSearch = () => {
+    navigate(`/search?q=${query}`)
+  }
+
   return (
     <Center mt={'74px'}>
       <InputGroup w={'656px'} borderRadius={'12px'} bgColor={'white'}>
-        <Input height={'56px'} placeholder='هوشمند جستجو کنید...' borderRadius={'12px'} borderColor={'#E0E0E0'} boxShadow="0px 1px 4px 0px #0000000D"
+        <Input height={'56px'} placeholder='هوشمند جستجو کنید...' borderRadius={'12px'} borderColor={'#E0E0E0'} boxShadow="0px 1px 4px 0px #0000000D" onChange={e => setQuery(e.target.value)}
         />
-        <InputRightElement height={'56px'} ml={'12px'}>
+        <InputRightElement height={'56px'} ml={'12px'} onClick={handleSearch}>
           <IconButton borderRadius={'100%'} icon={<CiSearch color='#00A762' />} bg="linear-gradient(320.71deg, #B9FDE0 6.56%, #E4F9F0 69.69%)"
             _hover={{
               bg: "linear-gradient(320.71deg, #9AE9CD 10%, #D6F5E9 75%)", // optional hover effect

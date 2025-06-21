@@ -3,8 +3,15 @@ import React from 'react'
 import { AiOutlineMenu } from 'react-icons/ai'
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
 import { IoArrowBack, IoArrowForward, IoBookmarksOutline } from 'react-icons/io5'
+import { SiMetafilter } from 'react-icons/si'
 
-const Footer = () => {
+const Footer = ({ total, page, setFilters }) => {
+
+  const nextPage = (page) => {
+    console.log(page)
+    setFilters({ page: page })
+  }
+
   return (
     <Box
       position="fixed"
@@ -24,16 +31,16 @@ const Footer = () => {
       <Flex justify="space-between" align="center" >
 
         <HStack w={'100%'} justifyContent={'space-between'}>
-          <HStack>
+          <HStack onClick={e => nextPage(page - 1)} cursor={'pointer'}>
             <IconButton icon={<IoIosArrowForward />} colorScheme='gray' variant={'ghost'} />
             <Text>صفحه قبل</Text>
           </HStack>
           <HStack>
-            <Text color={'#8A92A8'}>358</Text>
+            <Text color={'#8A92A8'}>{total}</Text>
             <Text color={'#8A92A8'}>/</Text>
-            <Input h={'36px'} w={'36px'} />
+            <Input h={'36px'} w={'66px'} value={page} />
           </HStack>
-          <HStack>
+          <HStack onClick={e => nextPage(page + 1)} cursor={'pointer'}>
             <Text>صفحه بعد</Text>
             <IconButton icon={<IoIosArrowBack />} colorScheme='gray' variant={'ghost'} />
           </HStack>
