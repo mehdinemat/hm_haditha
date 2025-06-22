@@ -16,7 +16,7 @@ const menuList = [
 ]
 const HeaderSearch = () => {
 
-  
+
   const navigate = useNavigate()
   const location = useLocation()
   const handleLinkClick = (link) => {
@@ -38,8 +38,8 @@ const HeaderSearch = () => {
         left="50%"
         transform="translateX(-50%)"
         w="60%"
-        height={'68px'}            // ✅ Entire HeaderSearch is 60% wide
-        zIndex="sticky"
+        height={'68px'}            
+        
         bg="white"
         border={'0.3px'}
         boxShadow="0px 4px 15px 0px #0000001A"
@@ -58,28 +58,44 @@ const HeaderSearch = () => {
                   _hover={{
                     bg: "linear-gradient(102.02deg, #3FD797 10%, #009953 85%)",
                     color: 'white',
+                    borderColor: 'none'
                   }}
                   _active={{
                     bg: "linear-gradient(102.02deg, #38C68A 10%, #00814B 85%)",
                   }}
+                  _focusVisible={{ outline: 'none' }}
+
                   borderRadius="12px"
-                  color="black" // default color
                   cursor={'pointer'}
                 >
-                  <IconButton
-                    icon={item?.icon}
-                    variant="ghost"
-                    fontSize="20px"
-                    _hover={{ bgColor: 'none', border: 'none' }} // prevents its own hover
-                    _groupHover={{ color: 'white' }} // this makes it white when HStack is hovered
-                    color="inherit"
+                  <Button leftIcon={item?.icon} iconSpacing={item.title ? '10px' : '0px'} bg={location?.pathname == item?.link ? 'linear-gradient(102.02deg, #4BE8AE 7.38%, #00A762 91.78%)' : "none"}
+                    _hover={{
+                      bg: "linear-gradient(102.02deg, #3FD797 10%, #009953 85%)",
+                      color: 'white',
+                    }}
+                    _active={{
+                      bg: "linear-gradient(102.02deg, #38C68A 10%, #00814B 85%)",
+                    }}
+                    _focus={{ outline: 'none' }}
+                    _focusVisible={{ outline: 'none' }}
+                    color={location?.pathname == item?.link ? 'white' : 'black'}
 
-                  />
-                  {item?.title && (
-                    <Text _groupHover={{ color: 'white' }} pl={'5px'} color="inherit">
-                      {item.title}
-                    </Text>
-                  )}
+                  >{item.title}</Button>
+                  {/* <IconButton
+                               icon={item?.icon}
+                               variant="ghost"
+                               fontSize="20px"
+                               _hover={{
+                                 bg: "linear-gradient(102.02deg, #3FD797 10%, #009953 85%)",
+                                 color: 'white',
+                               }}
+                               _focusVisible={{ outline: 'none' }}
+                             />
+                             {item?.title && (
+                               <Text _groupHover={{ color: 'white' }} pl={'5px'} color="inherit">
+                                 {item.title}
+                               </Text>
+                             )} */}
                 </HStack>
               ))
             }
@@ -108,7 +124,7 @@ const HeaderSearch = () => {
             <Button leftIcon={<IoDiamond />} height={'56px'} w={'100px'} bgColor={'white'} color={'#8A92A8'} fontSize={'14px'} border={'1'} borderColor={'#D9D9D9'} borderRadius={'12px'}>معنایی</Button>
             <Button height={'56px'} w={'100px'} bgColor={'white'} color={'#8A92A8'} fontSize={'14px'} border={'1'} borderColor={'#D9D9D9'} borderRadius={'12px'}>نوع</Button>
             <Button height={'56px'} w={'100px'} bgColor={'white'} color={'#8A92A8'} fontSize={'14px'} border={'1'} borderColor={'#D9D9D9'} borderRadius={'12px'}>متفرادف</Button>
-            <Button  height={'56px'} w={'100px'} bgColor={'white'} color={'#8A92A8'} fontSize={'14px'} border={'1'} borderColor={'#D9D9D9'} borderRadius={'12px'}>عین عبارت</Button>
+            <Button height={'56px'} w={'100px'} bgColor={'white'} color={'#8A92A8'} fontSize={'14px'} border={'1'} borderColor={'#D9D9D9'} borderRadius={'12px'}>عین عبارت</Button>
           </HStack>
         </HStack>
       </Container>

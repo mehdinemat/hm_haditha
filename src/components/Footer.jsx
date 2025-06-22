@@ -19,7 +19,6 @@ const Header = () => {
         <HStack alignItems={'center'} h={'48px'} bgColor={'#1B2132'} gap={0} w={'100%'} justifyContent={'space-between'}>
             <Container as={HStack} maxW="container.xl" justifyContent={'space-between'}>
                 <Text color={'white'} fontWeight={'300'} fontSize={'13px'}>© تمام حقوق اين وب‌سايت نیز برای مؤسسه هوش مصنوعی و تمدن اسلامی (همتا) است.</Text>
-                <Text color={'white'} fontWeight={'300'} fontSize={'13px'}>طراحی شده توسط استودیو نیوا</Text>
             </Container>
         </HStack>
     )

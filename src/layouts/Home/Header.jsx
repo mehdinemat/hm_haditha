@@ -3,7 +3,7 @@ import { Badge, Box, Flex, Heading, HStack, Image, Text, VStack } from '@chakra-
 
 const Header = () => {
   return (
-    <VStack justify="center" align="center" p={8} pt="164px" >
+    <VStack justify="center" align="center" p={8} pt={{base:'30px' , md:"164px"}} >
     <Image src="/ai_icon.png" width="196px" height="186px" />
     <HStack mt={'48px'}>
       <Text>کاوش با</Text>

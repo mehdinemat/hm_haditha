@@ -14,7 +14,7 @@ const BodyBox = () => {
           borderImageSource: "linear-gradient(90deg, #76FFDA 0%, #3FC9FA 100%)",
           borderImageSlice: 1,
         }}>
-        <Grid templateColumns="repeat(3, 1fr)" w={'100%'}>
+        <Grid templateColumns={{base:"repeat(1, 1fr)" , md:"repeat(3, 1fr)"}} w={'100%'}>
           <GridItem
             as={Box}
             height="660px"

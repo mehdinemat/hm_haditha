@@ -35,7 +35,7 @@ const Search = () => {
           </VStack>
           : <VStack w={'100%'} alignItems={'start'} my={'16px'}>
             <Text fontSize={'11px'} color={'#B4C2CF'}>نتیجه</Text>
-            <VStack mt={'10px'} w={'100%'}>
+            <VStack mt={'10px'} w={'100%'} gap={'20px'}>
               {
                 dataSearch?.data?.data?.content?.map((item, index) => (
                   <SearchCard item={item} onOpen={onOpenSimilar} setSelectedHadith={setSelectedHadith} index={index} />
@@ -51,7 +51,6 @@ const Search = () => {
           <ModalHeader zIndex={99}>حدیثا</ModalHeader>
           <ModalCloseButton zIndex={99} />
           <ModalBody pb="100px" >
-            {/* Background Image Layer */}
             <Box position="absolute" inset={0} zIndex={'-999'}>
               <Image
                 src={'/modalhadith1.png'}
@@ -90,8 +89,18 @@ const Search = () => {
             {/* Foreground Content */}
             <Box position="relative" zIndex={1} minHeight={'600px'}>
               <HadithCard item={dataSearch?.data?.data?.content?.[selectedHadith]} />
-
-              <Box as={VStack} w="100%" position="absolute" bottom="-100" right={0} padding="20px">
+              <Box
+                position="fixed"
+                bottom="180px"
+                left="50%"
+                transform="translateX(-50%)"
+                w="46%"
+                height={'68px'}
+                zIndex="sticky"
+                py={4}
+                px={'16px'}
+                borderRadius="16px"
+              >
                 <HStack w="100%" justifyContent="space-between">
                   <Box
                     position="relative"

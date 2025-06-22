@@ -1,4 +1,4 @@
-import { Box, Button, Container, Divider, Grid, GridItem, Heading, HStack, IconButton, Image, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Spinner, Text, useDisclosure, VStack } from '@chakra-ui/react'
+import { Box, Button, Container, Divider, Grid, GridItem, Heading, HStack, IconButton, Image, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Spinner, Stack, Text, useDisclosure, VStack } from '@chakra-ui/react'
 import React, { useEffect } from 'react'
 import SearchCard from '../components/Search/SearchCard'
 import { IoClose, IoEllipsisVerticalCircleSharp, IoSearch } from 'react-icons/io5'
@@ -43,7 +43,7 @@ const Library = () => {
   // const { num, on, t, foot, fullText } = parseXML(dataBookContent?.data?.hits?.[9]?.xml || '');
 
   useEffect(() => {
-    if(id){
+    if (id) {
       onOpen()
     }
   }, [id])
@@ -51,11 +51,11 @@ const Library = () => {
   return (
     <Container maxW="1150px">
       <VStack w={'100%'} alignItems={'start'} my={'16px'}>
-        <Grid templateColumns='repeat(5, 1fr)' gap={'40px'} height={'80vh'} mt={'100px'} w={'100%'}>
+        <Grid templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(5, 1fr)' }} gap={'40px'} height={'100%'} mt={{ base: '20px', md: '100px' }} w={'100%'}>
           {
             dataLibrary?.data?.hits?.map((item) => (
-              <GridItem w={'100%'} onClick={e => navigate(`/library/${item?.id}`)}>
-                <Image src='/kafi.webp' maxW={'100%'} h={'auto'} onClick={onOpen} bgColor={'#D9D9D9'} cursor={'pointer'} />
+              <GridItem as={Stack} w={'100%'} onClick={e => navigate(`/library/${item?.id}`)} alignItems={'center'} justifyContent={'center'}>
+                <Image src='/kafi.webp' maxW={{ base: '100px', md: '100%' }} h={'auto'} onClick={onOpen} bgColor={'#D9D9D9'} cursor={'pointer'} />
                 <Text>{item?.book_title}</Text>
                 <Text fontSize={'xs'}>جلد {item?.vol_num}</Text>
               </GridItem>

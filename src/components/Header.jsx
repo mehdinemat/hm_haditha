@@ -62,21 +62,34 @@ const Header = () => {
                 color="black" // default color
                 cursor={'pointer'}
               >
-                <IconButton
-                  icon={item?.icon}
-                  variant="ghost"
-                  fontSize="20px"
+                <Button leftIcon={item?.icon} iconSpacing={item.title ? '10px':'0px'} bg={location?.pathname == item?.link ? 'linear-gradient(102.02deg, #4BE8AE 7.38%, #00A762 91.78%)' : "none"}
                   _hover={{
                     bg: "linear-gradient(102.02deg, #3FD797 10%, #009953 85%)",
                     color: 'white',
+                    borderColor:'none'
                   }}
+                  color={location?.pathname == item?.link ? 'white':'black'}
+                  _active={{
+                    bg: "linear-gradient(102.02deg, #38C68A 10%, #00814B 85%)",
+                  }}
+                  _focus={{outline:'none'}}
                   _focusVisible={{ outline: 'none' }}
-                />
-                {item?.title && (
-                  <Text _groupHover={{ color: 'white' }} pl={'5px'} color="inherit">
-                    {item.title}
-                  </Text>
-                )}
+                >{item.title}</Button>
+                {/* <IconButton
+                    icon={item?.icon}
+                    variant="ghost"
+                    fontSize="20px"
+                    _hover={{
+                      bg: "linear-gradient(102.02deg, #3FD797 10%, #009953 85%)",
+                      color: 'white',
+                    }}
+                    _focusVisible={{ outline: 'none' }}
+                  />
+                  {item?.title && (
+                    <Text _groupHover={{ color: 'white' }} pl={'5px'} color="inherit">
+                      {item.title}
+                    </Text>
+                  )} */}
               </HStack>
             ))
           }

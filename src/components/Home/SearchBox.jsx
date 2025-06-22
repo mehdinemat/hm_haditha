@@ -15,7 +15,7 @@ const SearchBox = () => {
   }
 
   return (
-    <Center mt={'104px'}>
+    <Center mt={{ base: '20px', md: '104px' }}>
       <InputGroup w={'656px'} borderRadius={'12px'}>
         <Input height={'72px'} placeholder='هوشمند جستجو کنید...' borderRadius={'12px'} borderColor={'#E0E0E0'} boxShadow="0px 1px 4px 0px #0000000D"
           onChange={e => setQuery(e.target.value)} />

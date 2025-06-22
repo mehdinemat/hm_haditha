@@ -47,7 +47,7 @@ const Exprience = () => {
             background: 'linear-gradient(329.16deg, #B9FDE0 13.45%, #EEFFF8 63.57%)',
         }} pt={'96px'}>
             <Text>تجربه شما با حدیثا</Text>
-            <Box maxW="800px" mx="auto" mt={10}>
+            <Box maxW="100%" mx="auto" mt={10}>
                 <Slider {...settings}>
                     {images.map((item, index) => (
                         <Box key={index} display="flex !important" justifyContent="center">
