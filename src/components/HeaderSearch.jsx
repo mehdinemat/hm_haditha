@@ -45,7 +45,7 @@ const HeaderSearch = () => {
         boxShadow="0px 4px 15px 0px #0000001A"
         py={4}
         px={'16px'}
-        borderRadius="16px"    // optional: rounded corners
+        borderRadius="16px"    
       >
         <Flex justify="space-between" align="center" >
           <Flex gap={4} >
