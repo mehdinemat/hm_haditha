@@ -5,7 +5,7 @@ import { MdVoiceChat } from "react-icons/md";
 import { GoHome } from "react-icons/go";
 import { IoBookmarksOutline } from "react-icons/io5";
 import { AiOutlineMenu } from "react-icons/ai";
-import { useLocation, useNavigate } from 'react-router-dom';
+import { matchPath, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
 
@@ -24,6 +24,12 @@ const HeaderMobile = () => {
         navigate(link)
     }
 
+    function matchesPath(path, link) {
+        const input = "/library";
+        const regex = new RegExp(`^${link}(\/[^\/]+)?$`);
+        return regex.test(path);
+    }
+
 
     return (
         <Box
@@ -32,13 +38,13 @@ const HeaderMobile = () => {
             left="50%"
             transform="translateX(-50%)"
             w="80%"
-            height={'68px'}            // ✅ Entire header is 60% wide
+            height={'68px'}
             zIndex="sticky"
             bg="white"
             border={'0.3px'}
             boxShadow="0px 4px 15px 0px #0000001A"
             px={'16px'}
-            borderRadius="16px"    // optional: rounded corners
+            borderRadius="16px"
         >
             <Flex justify="space-between" align="center" height={'100%'}>
                 <Grid gap={4} templateColumns={"repeat(4, 1fr)"} w={'100%'}>
@@ -47,7 +53,7 @@ const HeaderMobile = () => {
                             <VStack
                                 onClick={e => handleLinkClick(item?.link)}
                                 role="group"
-                                bg={location?.pathname == item?.link ? 'linear-gradient(102.02deg, #4BE8AE 7.38%, #00A762 91.78%)' : "none"}
+                                bg={matchesPath(location?.pathname, item?.link) ? 'linear-gradient(102.02deg, #4BE8AE 7.38%, #00A762 91.78%)' : "none"}
                                 _hover={{
                                     bg: "linear-gradient(102.02deg, #3FD797 10%, #009953 85%)",
                                     color: 'white',
@@ -56,15 +62,14 @@ const HeaderMobile = () => {
                                     bg: "linear-gradient(102.02deg, #38C68A 10%, #00814B 85%)",
                                 }}
                                 _focusVisible={{ outline: 'none' }}
-
                                 borderRadius="12px"
-                                color={location?.pathname == item?.link ? 'white' : "black"} // default color
+                                color={matchesPath(location?.pathname, item?.link) ? 'white' : "black"} // default color
                                 cursor={'pointer'}
                                 padding={'5px'}
                             >
                                 {item?.icon}
                                 {item?.title && (
-                                    <Text _groupHover={{ color: 'white' }} fontSize={'12px'} color={location?.pathname == item?.link ? 'white' : "inherit"}>
+                                    <Text _groupHover={{ color: 'white' }} fontSize={'12px'} color={matchesPath(location?.pathname, item?.link) ? 'white' : "inherit"}>
                                         {item.title}
                                     </Text>
                                 )}
@@ -72,20 +77,6 @@ const HeaderMobile = () => {
                         ))
                     }
                 </Grid>
-                {/* <HStack>
-                    <Menu>
-                        <IconButton as={MenuButton} icon={<AiOutlineMenu />} variant={'ghost'} />
-
-                        <MenuList>
-                            <MenuItem onClick={() => alert("Profile clicked")}>Profile</MenuItem>
-                            <MenuItem>Settings</MenuItem>
-                            <MenuItem>Billing</MenuItem>
-                            <MenuDivider />
-                            <MenuItem color="red.500">Log out</MenuItem>
-                        </MenuList>
-                    </Menu>
-                    <IconButton icon={<IoBookmarksOutline />} variant={'ghost'} />
-                </HStack> */}
             </Flex>
         </Box>
     )

@@ -24,6 +24,12 @@ const Header = () => {
     navigate(link)
   }
 
+    function matchesPath(path, link) {
+        const input = "/library";
+        const regex = new RegExp(`^${link}(\/[^\/]+)?$`);
+        return regex.test(path);
+    }
+
 
   return (
     <Box
@@ -48,7 +54,7 @@ const Header = () => {
               <HStack
                 onClick={e => handleLinkClick(item?.link)}
                 role="group"
-                bg={location?.pathname == item?.link ? 'linear-gradient(102.02deg, #4BE8AE 7.38%, #00A762 91.78%)' : "none"}
+                bg={matchesPath(location?.pathname, item?.link) ? 'linear-gradient(102.02deg, #4BE8AE 7.38%, #00A762 91.78%)' : "none"}
                 _hover={{
                   bg: "linear-gradient(102.02deg, #3FD797 10%, #009953 85%)",
                   color: 'white',
@@ -62,13 +68,13 @@ const Header = () => {
                 color="black" // default color
                 cursor={'pointer'}
               >
-                <Button leftIcon={item?.icon} iconSpacing={item.title ? '10px':'0px'} bg={location?.pathname == item?.link ? 'linear-gradient(102.02deg, #4BE8AE 7.38%, #00A762 91.78%)' : "none"}
+                <Button leftIcon={item?.icon} iconSpacing={item.title ? '10px':'0px'} bg={matchesPath(location?.pathname, item?.link) ? 'linear-gradient(102.02deg, #4BE8AE 7.38%, #00A762 91.78%)' : "none"}
                   _hover={{
                     bg: "linear-gradient(102.02deg, #3FD797 10%, #009953 85%)",
                     color: 'white',
                     borderColor:'none'
                   }}
-                  color={location?.pathname == item?.link ? 'white':'black'}
+                  color={matchesPath(location?.pathname, item?.link) ? 'white':'black'}
                   _active={{
                     bg: "linear-gradient(102.02deg, #38C68A 10%, #00814B 85%)",
                   }}

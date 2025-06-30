@@ -5,6 +5,7 @@ import LayoutSearch from './components/LayoutSearch'
 import Search from './pages/Search'
 import Bookmarks from './pages/Bookmarks'
 import Library from './pages/Library'
+import ChatBot from './pages/ChatBot'
 import LibraryItem from './pages/LibraryItem'
 import Hadith from './pages/Hadith'
 import LayoutHadith from './components/HadithSearch'
@@ -12,6 +13,7 @@ import { SWRConfig } from 'swr'
 import { fetcher } from './components/lib/api'
 import { ReactRouter6Adapter } from 'use-query-params/adapters/react-router-6';
 import { QueryParamProvider } from 'use-query-params';
+import ChatBotConv from './pages/ChatBotConv'
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
               <Route path="/bookmarks" element={<Bookmarks />} />
               <Route path="/library/:id" element={<Library />} />
               <Route path="/library" element={<Library />} />
+              <Route path='/chatbot' element={<ChatBot />} />
+              <Route path='/chatbot/:id' element={<ChatBotConv />} />
               {/* <Route path="/library/:id" element={<LibraryItem />} /> */}
 
               {/* Add more routes here */}
