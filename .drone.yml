@@ -1,0 +1,57 @@
+kind: pipeline
+type: docker
+name: CI
+
+trigger:
+  event:
+    - push
+    - custom
+  branch:
+    - main
+    
+clone:
+  disable: true
+
+steps:
+  - name: clone
+    image: alpine/git
+    environment:
+      GITEA_DEPLOY_TOKEN:
+        from_secret: deploy-token
+    commands:
+      - echo "172.30.0.112 git.t.etratnet.ir" >> /etc/hosts
+      - git config --global credential.helper store
+      - echo $GITEA_DEPLOY_TOKEN
+      - GIT_SSL_NO_VERIFY=true git clone https://drone-deploy:$GITEA_DEPLOY_TOKEN@git.t.etratnet.ir/${DRONE_REPO_OWNER}/${DRONE_REPO_NAME}.git
+  
+  - name: build-image
+    image: docker.arvancloud.ir/docker
+    volumes:
+      - name: dockersock
+        path: /var/run/docker.sock
+    commands:
+      - cd ${DRONE_REPO_NAME}/
+      - docker build -t ${DRONE_REPO_NAME}:latest .
+      - docker builder prune -f
+
+  - name: deploy
+    image: docker.arvancloud.ir/docker
+    volumes:
+      - name: dockersock
+        path: /var/run/docker.sock
+    environment:
+      ENV_FILE:
+        from_secret: deploy-env
+    commands:
+      - cd ${DRONE_REPO_NAME}/
+      - echo "$ENV_FILE" > .env
+      - docker stop ${DRONE_REPO_NAME} || true
+      - docker rm ${DRONE_REPO_NAME} || true
+      - docker run -d --name ${DRONE_REPO_NAME} --env-file .env --restart unless-stopped -p 3000:3009 ${DRONE_REPO_NAME}:latest
+      - docker image prune -f
+      - rm .env
+
+volumes:
+  - name: dockersock
+    host:
+      path: /var/run/docker.sock
