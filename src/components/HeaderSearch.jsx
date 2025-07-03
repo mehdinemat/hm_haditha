@@ -7,6 +7,7 @@ import { IoBookmarksOutline } from "react-icons/io5";
 import { AiOutlineMenu } from "react-icons/ai";
 import SearchBox2 from './Search/SearchBox2'
 import { useLocation, useNavigate } from 'react-router-dom';
+import { StringParam, useQueryParams, withDefault } from 'use-query-params';
 
 const menuList = [
   { title: '', icon: <GoHome />, link: '/' },
@@ -23,6 +24,10 @@ const HeaderSearch = () => {
     navigate(link)
   }
 
+  const [filters, setFilters] = useQueryParams({
+    type: withDefault(StringParam, 'exact')
+  })
+
   return (
     <Stack w={'100%'} height={'180px'}
       sx={{
@@ -38,14 +43,14 @@ const HeaderSearch = () => {
         left="50%"
         transform="translateX(-50%)"
         w="60%"
-        height={'68px'}            
-        
+        height={'68px'}
+
         bg="white"
         border={'0.3px'}
         boxShadow="0px 4px 15px 0px #0000001A"
         py={4}
         px={'16px'}
-        borderRadius="16px"    
+        borderRadius="16px"
       >
         <Flex justify="space-between" align="center" >
           <Flex gap={4} >
@@ -121,10 +126,10 @@ const HeaderSearch = () => {
         <HStack w={'100%'} alignItems={'start'} justifyContent={'space-between'}>
           <SearchBox2 />
           <HStack mt={'74px'}>
-            <Button leftIcon={<IoDiamond />} height={'56px'} w={'100px'} bgColor={'white'} color={'#8A92A8'} fontSize={'14px'} border={'1'} borderColor={'#D9D9D9'} borderRadius={'12px'}>معنایی</Button>
+            <Button leftIcon={<IoDiamond />} height={'56px'} w={'100px'} bgColor={filters?.type == 'semantic' ? 'green.500' : 'white'} color={filters?.type == 'semantic' ? 'white' : '#8A92A8'} fontSize={'14px'} border={'1'} borderColor={'#D9D9D9'} borderRadius={'12px'} onClick={e => setFilters({ type: 'semantic' })} colorScheme='green' _focus={{outline:'none'}} _focusVisible={{boxShadow:'none'}}>معنایی</Button>
             <Button height={'56px'} w={'100px'} bgColor={'white'} color={'#8A92A8'} fontSize={'14px'} border={'1'} borderColor={'#D9D9D9'} borderRadius={'12px'}>نوع</Button>
             <Button height={'56px'} w={'100px'} bgColor={'white'} color={'#8A92A8'} fontSize={'14px'} border={'1'} borderColor={'#D9D9D9'} borderRadius={'12px'}>متفرادف</Button>
-            <Button height={'56px'} w={'100px'} bgColor={'white'} color={'#8A92A8'} fontSize={'14px'} border={'1'} borderColor={'#D9D9D9'} borderRadius={'12px'}>عین عبارت</Button>
+            <Button height={'56px'} w={'100px'} fontSize={'14px'} border={'1'} borderColor={'#D9D9D9'} borderRadius={'12px'} onClick={e => setFilters({ type: 'exact' })} colorScheme='green' bgColor={filters?.type == 'exact' ? 'green.500' : 'white'} color={filters?.type == 'exact' ? 'white' : '#8A92A8'} _focus={{outline:'none'}} _focusVisible={{boxShadow:'none'}}>عین عبارت</Button>
           </HStack>
         </HStack>
       </Container>

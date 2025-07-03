@@ -1,4 +1,4 @@
-import { Box, Button, Container, Divider, HStack, Icon, IconButton, Image, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Text, useDisclosure, VStack } from '@chakra-ui/react'
+import { Box, Button, Container, Divider, HStack, Icon, IconButton, Image, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Spinner, Text, useDisclosure, VStack } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import SearchCard from '../components/Search/SearchCard'
 import { useLocation } from 'react-router-dom';
@@ -8,8 +8,13 @@ import { IoDiamond, IoSearch } from 'react-icons/io5';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import Header from '../layouts/Home/Header';
 import { LuSearchX } from "react-icons/lu";
+import { StringParam, useQueryParams, withDefault } from 'use-query-params';
 
 const Search = () => {
+
+  const [filters, setFilters] = useQueryParams({
+    type: withDefault(StringParam, 'exact')
+  })
 
   const location = useLocation();
 
@@ -21,7 +26,7 @@ const Search = () => {
 
   const { onOpen: onOpenSimilar, onClose: onCloseSimilar, isOpen: isOpenSimilar } = useDisclosure()
 
-  const { data: dataSearch, isLoading: isLoadingSearch } = useSWR(searchQuery && `user/ai/search?content=${searchQuery}`)
+  const { data: dataSearch, isLoading: isLoadingSearch } = useSWR(searchQuery && `user/ai/search?content=${searchQuery}&search_type=${filters?.type}&size=100&from_=0`)
 
 
   return (
@@ -33,7 +38,7 @@ const Search = () => {
             <LuSearchX fontSize={'50px'} color='#B4C2CF' />
             <Text>نتیجه‌ای یافت نشد!</Text>
           </VStack>
-          : <VStack w={'100%'} alignItems={'start'} my={'16px'}>
+          : isLoadingSearch ? <VStack w={'100%'} alignItems={'start'} my={'16px'}><Spinner /></VStack> : <VStack w={'100%'} alignItems={'start'} my={'16px'}>
             <Text fontSize={'11px'} color={'#B4C2CF'}>نتیجه</Text>
             <VStack mt={'10px'} w={'100%'} gap={'20px'}>
               {
