@@ -1,5 +1,5 @@
 import { Box, Button, Container, Divider, HStack, Icon, IconButton, Image, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Spinner, Text, useDisclosure, VStack } from '@chakra-ui/react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import SearchCard from '../components/Search/SearchCard'
 import { useLocation } from 'react-router-dom';
 import useSWR from 'swr';
@@ -13,7 +13,7 @@ import { StringParam, useQueryParams, withDefault } from 'use-query-params';
 const Search = () => {
 
   const [filters, setFilters] = useQueryParams({
-    type: withDefault(StringParam, 'exact')
+    type: withDefault(StringParam, 'exact'),
   })
 
   const location = useLocation();
@@ -28,9 +28,13 @@ const Search = () => {
 
   const { data: dataSearch, isLoading: isLoadingSearch } = useSWR(searchQuery && `user/ai/search?content=${searchQuery}&search_type=${filters?.type}&size=100&from_=0`)
 
+  useEffect(() => {
+    document.title = searchQuery || 'جستجو در احادیث';
+  }, [searchQuery]);
 
   return (
     <Container maxW="1150px">
+
       {!searchQuery
         ? <Header />
         : dataSearch?.data?.data?.content?.length == 0
