@@ -25,7 +25,7 @@ steps:
       - GIT_SSL_NO_VERIFY=true git clone https://drone-deploy:$GITEA_DEPLOY_TOKEN@git.t.etratnet.ir/${DRONE_REPO_OWNER}/${DRONE_REPO_NAME}.git
   
   - name: build-image
-    image: docker.arvancloud.ir/docker
+    image: docker
     volumes:
       - name: dockersock
         path: /var/run/docker.sock
@@ -35,7 +35,7 @@ steps:
       - docker builder prune -f
 
   - name: deploy
-    image: docker.arvancloud.ir/docker
+    image: docker
     volumes:
       - name: dockersock
         path: /var/run/docker.sock
