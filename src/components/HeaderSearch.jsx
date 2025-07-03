@@ -48,28 +48,17 @@ const HeaderSearch = () => {
         bg="white"
         border={'0.3px'}
         boxShadow="0px 4px 15px 0px #0000001A"
-        py={4}
+        py={2}
         px={'16px'}
         borderRadius="16px"
       >
-        <Flex justify="space-between" align="center" >
-          <Flex gap={4} >
+        <Flex justify="space-between" align="center" height={'100%'} >
+          <Flex gap={4} height={'100%'}>
             {
               menuList?.map((item) => (
                 <HStack
                   onClick={e => handleLinkClick(item?.link)}
                   role="group"
-                  bg={location?.pathname == item?.link ? 'linear-gradient(102.02deg, #4BE8AE 7.38%, #00A762 91.78%)' : "none"}
-                  _hover={{
-                    bg: "linear-gradient(102.02deg, #3FD797 10%, #009953 85%)",
-                    color: 'white',
-                    borderColor: 'none'
-                  }}
-                  _active={{
-                    bg: "linear-gradient(102.02deg, #38C68A 10%, #00814B 85%)",
-                  }}
-                  _focusVisible={{ outline: 'none' }}
-
                   borderRadius="12px"
                   cursor={'pointer'}
                 >
@@ -77,6 +66,8 @@ const HeaderSearch = () => {
                     _hover={{
                       bg: "linear-gradient(102.02deg, #3FD797 10%, #009953 85%)",
                       color: 'white',
+                      borderColor: 'unset',
+
                     }}
                     _active={{
                       bg: "linear-gradient(102.02deg, #38C68A 10%, #00814B 85%)",
@@ -126,10 +117,10 @@ const HeaderSearch = () => {
         <HStack w={'100%'} alignItems={'start'} justifyContent={'space-between'}>
           <SearchBox2 />
           <HStack mt={'74px'}>
-            <Button leftIcon={<IoDiamond />} height={'56px'} w={'100px'} bgColor={filters?.type == 'semantic' ? 'green.500' : 'white'} color={filters?.type == 'semantic' ? 'white' : '#8A92A8'} fontSize={'14px'} border={'1'} borderColor={'#D9D9D9'} borderRadius={'12px'} onClick={e => setFilters({ type: 'semantic' })} colorScheme='green' _focus={{outline:'none'}} _focusVisible={{boxShadow:'none'}}>معنایی</Button>
+            <Button leftIcon={<IoDiamond />} height={'56px'} w={'100px'} bgColor={filters?.type == 'semantic' ? 'green.500' : 'white'} color={filters?.type == 'semantic' ? 'white' : '#8A92A8'} fontSize={'14px'} border={'1'} borderColor={'#D9D9D9'} borderRadius={'12px'} onClick={e => setFilters({ type: 'semantic' })} colorScheme='green' _focus={{ outline: 'none' }} _focusVisible={{ boxShadow: 'none' }}>معنایی</Button>
             <Button height={'56px'} w={'100px'} bgColor={'white'} color={'#8A92A8'} fontSize={'14px'} border={'1'} borderColor={'#D9D9D9'} borderRadius={'12px'}>نوع</Button>
             <Button height={'56px'} w={'100px'} bgColor={'white'} color={'#8A92A8'} fontSize={'14px'} border={'1'} borderColor={'#D9D9D9'} borderRadius={'12px'}>متفرادف</Button>
-            <Button height={'56px'} w={'100px'} fontSize={'14px'} border={'1'} borderColor={'#D9D9D9'} borderRadius={'12px'} onClick={e => setFilters({ type: 'exact' })} colorScheme='green' bgColor={filters?.type == 'exact' ? 'green.500' : 'white'} color={filters?.type == 'exact' ? 'white' : '#8A92A8'} _focus={{outline:'none'}} _focusVisible={{boxShadow:'none'}}>عین عبارت</Button>
+            <Button height={'56px'} w={'100px'} fontSize={'14px'} border={'1'} borderColor={'#D9D9D9'} borderRadius={'12px'} onClick={e => setFilters({ type: 'exact' })} colorScheme='green' bgColor={filters?.type == 'exact' ? 'green.500' : 'white'} color={filters?.type == 'exact' ? 'white' : '#8A92A8'} _focus={{ outline: 'none' }} _focusVisible={{ boxShadow: 'none' }}>عین عبارت</Button>
           </HStack>
         </HStack>
       </Container>

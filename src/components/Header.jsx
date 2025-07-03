@@ -43,26 +43,18 @@ const Header = () => {
       bg="white"
       border={'0.3px'}
       boxShadow="0px 4px 15px 0px #0000001A"
-      py={4}
+      py={2}
       px={'16px'}
       borderRadius="16px"    // optional: rounded corners
     >
-      <Flex justify="space-between" align="center" >
-        <Flex gap={4} >
+      <Flex justify="space-between" align="center" height='100%'>
+        <Flex gap={4} height='100%'>
           {
             menuList?.map((item) => (
               <HStack
                 onClick={e => handleLinkClick(item?.link)}
                 role="group"
-                bg={matchesPath(location?.pathname, item?.link) ? 'linear-gradient(102.02deg, #4BE8AE 7.38%, #00A762 91.78%)' : "none"}
-                _hover={{
-                  bg: "linear-gradient(102.02deg, #3FD797 10%, #009953 85%)",
-                  color: 'white',
-                }}
-                _active={{
-                  bg: "linear-gradient(102.02deg, #38C68A 10%, #00814B 85%)",
-                }}
-                _focusVisible={{ outline: 'none' }}
+             
 
                 borderRadius="12px"
                 color="black" // default color
@@ -72,7 +64,7 @@ const Header = () => {
                   _hover={{
                     bg: "linear-gradient(102.02deg, #3FD797 10%, #009953 85%)",
                     color: 'white',
-                    borderColor:'none'
+                    borderColor:'unset',
                   }}
                   color={matchesPath(location?.pathname, item?.link) ? 'white':'black'}
                   _active={{
