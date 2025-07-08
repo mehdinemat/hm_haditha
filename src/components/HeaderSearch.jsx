@@ -20,6 +20,7 @@ const menuList = [
 const HeaderSearch = () => {
 
   const [enabledKeys, setEnabledKeys] = useState({})
+  const [searchKeys, setSearchKeys] = useState('')
 
   const toggleKey = (key) => {
     setEnabledKeys((prev) => ({
@@ -31,7 +32,9 @@ const HeaderSearch = () => {
   const handleSelect = (key, val) => {
     if (enabledKeys[key]) {
       // Do something with selected val
-      console.log('Selected:', val)
+      setSearchKeys(val)
+      setFilters({ q: val })
+      console.log('Selected:', val, enabledKeys)
     }
   }
 
@@ -39,7 +42,7 @@ const HeaderSearch = () => {
   const location = useLocation()
   const queryParams = new URLSearchParams(location.search);
   const searchQuery = queryParams.get('q');
-  const { data: dataSearch, isLoading: isLoadingSearch } = useSWR(searchQuery && `user/ai/synonyms?content=${searchQuery || ''}`)
+  const { data: dataSearch, isLoading: isLoadingSearch } = useSWR(searchQuery && `user/ai/synonyms?content=${searchKeys || searchQuery || ''}`)
 
 
   const handleLinkClick = (link) => {
@@ -47,7 +50,8 @@ const HeaderSearch = () => {
   }
 
   const [filters, setFilters] = useQueryParams({
-    type: withDefault(StringParam, 'exact')
+    type: withDefault(StringParam, 'exact'),
+    q: withDefault(StringParam, ''),
   })
 
   return (
@@ -144,16 +148,11 @@ const HeaderSearch = () => {
 
             <Menu>
               <MenuButton
+                colorScheme='green'
+                
                 as={Button}
-                height="56px"
-                w="100px"
-                bgColor="white"
-                color="#8A92A8"
-                fontSize="14px"
-                border="1px"
-                borderColor="#D9D9D9"
-                borderRadius="12px"
-              >
+                _focus={{ outline: 'none' }} _focusVisible={{ boxShadow: 'none' }}
+                height={'56px'} w={'100px'} fontSize={'14px'} border={'1'} borderColor={'#D9D9D9'} borderRadius={'12px'} bgColor={'white'} color={'#8A92A8'} _active={{color:'white'}}>
                 مترادف
               </MenuButton>
 
