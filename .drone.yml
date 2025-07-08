@@ -32,7 +32,6 @@ steps:
     commands:
       - cd ${DRONE_REPO_NAME}/
       - docker build -t ${DRONE_REPO_NAME}:latest .
-      - docker builder prune -f
 
   - name: deploy
     image: docker
@@ -47,7 +46,7 @@ steps:
       - echo "$ENV_FILE" > .env
       - docker stop ${DRONE_REPO_NAME} || true
       - docker rm ${DRONE_REPO_NAME} || true
-      - docker run -d --name ${DRONE_REPO_NAME} --env-file .env --restart unless-stopped -p 3000:3009 ${DRONE_REPO_NAME}:latest
+      - docker run -d --name ${DRONE_REPO_NAME} --env-file .env --restart unless-stopped -p 3009:80 ${DRONE_REPO_NAME}:latest
       - docker image prune -f
       - rm .env
 

@@ -1,10 +1,19 @@
-FROM docker.d.aiengines.ir/nginx:alpine
+FROM node:20-alpine AS builder
 
-COPY dist /usr/share/nginx/html
+WORKDIR /app
 
-COPY /nginx.conf /etc/nginx/conf.d/default.conf
+COPY package*.json ./
+RUN npm config set registry https://mirror-npm.runflare.com \
+  && npm install
 
-COPY /entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
+COPY . .
 
-ENTRYPOINT ["/entrypoint.sh"]
+RUN npm run build
+
+FROM nginx:alpine
+
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
