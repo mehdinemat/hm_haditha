@@ -104,7 +104,7 @@ const HeaderSearch = () => {
           }} w={'100%'}>
             <Button leftIcon={<IoDiamond />} height={'56px'} w={'100%'} bgColor={'white'} color={'#8A92A8'} fontSize={'14px'} border={'1'} borderColor={'#D9D9D9'} borderRadius={'12px'}>معنایی</Button>
             <Button height={'56px'} w={'100%'} bgColor={'white'} color={'#8A92A8'} fontSize={'14px'} border={'1'} borderColor={'#D9D9D9'} borderRadius={'12px'}>نوع</Button>
-            <Button height={'56px'} w={'100%'} bgColor={'white'} color={'#8A92A8'} fontSize={'14px'} border={'1'} borderColor={'#D9D9D9'} borderRadius={'12px'}>متفرادف</Button>
+            <Button height={'56px'} w={'100%'} bgColor={'white'} color={'#8A92A8'} fontSize={'14px'} border={'1'} borderColor={'#D9D9D9'} borderRadius={'12px'}>مترادف</Button>
             <Button height={'56px'} w={'100%'} bgColor={'white'} color={'#8A92A8'} fontSize={'14px'} border={'1'} borderColor={'#D9D9D9'} borderRadius={'12px'}>عین عبارت</Button>
           </HStack>
         </Flex>

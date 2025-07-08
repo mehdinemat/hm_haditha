@@ -119,7 +119,24 @@ const HeaderSearch = () => {
           <HStack mt={'74px'}>
             <Button leftIcon={<IoDiamond />} height={'56px'} w={'100px'} bgColor={filters?.type == 'semantic' ? 'green.500' : 'white'} color={filters?.type == 'semantic' ? 'white' : '#8A92A8'} fontSize={'14px'} border={'1'} borderColor={'#D9D9D9'} borderRadius={'12px'} onClick={e => setFilters({ type: 'semantic' })} colorScheme='green' _focus={{ outline: 'none' }} _focusVisible={{ boxShadow: 'none' }}>معنایی</Button>
             <Button height={'56px'} w={'100px'} bgColor={'white'} color={'#8A92A8'} fontSize={'14px'} border={'1'} borderColor={'#D9D9D9'} borderRadius={'12px'}>نوع</Button>
-            <Button height={'56px'} w={'100px'} bgColor={'white'} color={'#8A92A8'} fontSize={'14px'} border={'1'} borderColor={'#D9D9D9'} borderRadius={'12px'}>متفرادف</Button>
+
+            <Menu>
+              <MenuButton as={Button} height={'56px'} w={'100px'} bgColor={'white'} color={'#8A92A8'} fontSize={'14px'} border={'1'} borderColor={'#D9D9D9'} borderRadius={'12px'}>
+                مترادف
+              </MenuButton>
+              <MenuList>
+                <MenuItem >
+                  پروفایل
+                </MenuItem>
+                <MenuItem >
+                  تنظیمات
+                </MenuItem>
+                <MenuItem >
+                  خروج
+                </MenuItem>
+              </MenuList>
+            </Menu>
+            {/* <Button height={'56px'} w={'100px'} bgColor={'white'} color={'#8A92A8'} fontSize={'14px'} border={'1'} borderColor={'#D9D9D9'} borderRadius={'12px'}>مترادف</Button> */}
             <Button height={'56px'} w={'100px'} fontSize={'14px'} border={'1'} borderColor={'#D9D9D9'} borderRadius={'12px'} onClick={e => setFilters({ type: 'exact' })} colorScheme='green' bgColor={filters?.type == 'exact' ? 'green.500' : 'white'} color={filters?.type == 'exact' ? 'white' : '#8A92A8'} _focus={{ outline: 'none' }} _focusVisible={{ boxShadow: 'none' }}>عین عبارت</Button>
           </HStack>
         </HStack>

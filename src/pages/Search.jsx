@@ -37,7 +37,7 @@ const Search = () => {
 
       {!searchQuery
         ? <Header />
-        : dataSearch?.data?.data?.content?.length == 0
+        : dataSearch?.data?.content?.length == 0
           ? <VStack h={'100%'} alignItems={'center'} justifyContent={'center'} mt={'100px'}>
             <LuSearchX fontSize={'50px'} color='#B4C2CF' />
             <Text>نتیجه‌ای یافت نشد!</Text>
@@ -46,7 +46,7 @@ const Search = () => {
             <Text fontSize={'11px'} color={'#B4C2CF'}>نتیجه</Text>
             <VStack mt={'10px'} w={'100%'} gap={'20px'}>
               {
-                dataSearch?.data?.data?.content?.map((item, index) => (
+                dataSearch?.data?.content?.map((item, index) => (
                   <SearchCard item={item} onOpen={onOpenSimilar} setSelectedHadith={setSelectedHadith} index={index} />
                 ))
               }
