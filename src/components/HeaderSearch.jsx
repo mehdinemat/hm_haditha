@@ -1,4 +1,4 @@
-import { Box, Flex, Text, Button, HStack, IconButton, Menu, MenuList, MenuDivider, MenuItem, MenuButton, Stack, Container } from '@chakra-ui/react'
+import { Box, Flex, Text, Button, HStack, IconButton, Menu, MenuList, MenuDivider, MenuItem, MenuButton, Stack, Container, Checkbox, Switch, VStack, Wrap, WrapItem } from '@chakra-ui/react'
 import { CiSearch } from "react-icons/ci";
 import { IoAdd, IoBookOutline, IoDiamond } from "react-icons/io5";
 import { MdVoiceChat } from "react-icons/md";
@@ -8,6 +8,8 @@ import { AiOutlineMenu } from "react-icons/ai";
 import SearchBox2 from './Search/SearchBox2'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { StringParam, useQueryParams, withDefault } from 'use-query-params';
+import { useEffect, useState } from 'react';
+import useSWR from 'swr';
 
 const menuList = [
   { title: '', icon: <GoHome />, link: '/' },
@@ -17,9 +19,29 @@ const menuList = [
 ]
 const HeaderSearch = () => {
 
+  const [enabledKeys, setEnabledKeys] = useState({})
+
+  const toggleKey = (key) => {
+    setEnabledKeys((prev) => ({
+      ...prev,
+      [key]: !prev[key]
+    }))
+  }
+
+  const handleSelect = (key, val) => {
+    if (enabledKeys[key]) {
+      // Do something with selected val
+      console.log('Selected:', val)
+    }
+  }
 
   const navigate = useNavigate()
   const location = useLocation()
+  const queryParams = new URLSearchParams(location.search);
+  const searchQuery = queryParams.get('q');
+  const { data: dataSearch, isLoading: isLoadingSearch } = useSWR(searchQuery && `user/ai/synonyms?content=${searchQuery || ''}`)
+
+
   const handleLinkClick = (link) => {
     navigate(link)
   }
@@ -121,19 +143,51 @@ const HeaderSearch = () => {
             <Button height={'56px'} w={'100px'} bgColor={'white'} color={'#8A92A8'} fontSize={'14px'} border={'1'} borderColor={'#D9D9D9'} borderRadius={'12px'}>نوع</Button>
 
             <Menu>
-              <MenuButton as={Button} height={'56px'} w={'100px'} bgColor={'white'} color={'#8A92A8'} fontSize={'14px'} border={'1'} borderColor={'#D9D9D9'} borderRadius={'12px'}>
+              <MenuButton
+                as={Button}
+                height="56px"
+                w="100px"
+                bgColor="white"
+                color="#8A92A8"
+                fontSize="14px"
+                border="1px"
+                borderColor="#D9D9D9"
+                borderRadius="12px"
+              >
                 مترادف
               </MenuButton>
-              <MenuList>
-                <MenuItem >
-                  پروفایل
-                </MenuItem>
-                <MenuItem >
-                  تنظیمات
-                </MenuItem>
-                <MenuItem >
-                  خروج
-                </MenuItem>
+
+              <MenuList padding="10px" maxH="400px" overflowY="auto">
+                {
+                  Object?.keys(dataSearch?.data || {})?.map((item) => (
+                    <VStack key={item} w="100%" align="stretch" spacing={2}>
+                      <HStack w="100%" justifyContent="space-between">
+                        <Text fontWeight="bold">{item}</Text>
+                        <Switch
+                          isChecked={!!enabledKeys[item]}
+                          onChange={() => toggleKey(item)}
+                        />
+                      </HStack>
+
+                      <Wrap spacing="8px" w="200px">
+                        {
+                          dataSearch?.data?.[item]?.map((val) => (
+                            <WrapItem key={val}>
+                              <Button
+                                variant="outline"
+                                colorScheme={enabledKeys[item] ? 'gray' : 'gray'}
+                                isDisabled={!enabledKeys[item]} // disable if switch is off
+                                onClick={() => handleSelect(item, val)}
+                              >
+                                {val}
+                              </Button>
+                            </WrapItem>
+                          ))
+                        }
+                      </Wrap>
+                    </VStack>
+                  ))
+                }
               </MenuList>
             </Menu>
             {/* <Button height={'56px'} w={'100px'} bgColor={'white'} color={'#8A92A8'} fontSize={'14px'} border={'1'} borderColor={'#D9D9D9'} borderRadius={'12px'}>مترادف</Button> */}
