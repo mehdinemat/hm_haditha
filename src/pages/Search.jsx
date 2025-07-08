@@ -8,13 +8,13 @@ import { IoDiamond, IoSearch } from 'react-icons/io5';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import Header from '../layouts/Home/Header';
 import { LuSearchX } from "react-icons/lu";
-import { StringParam, useQueryParams, withDefault } from 'use-query-params';
+import { DelimitedArrayParam, StringParam, useQueryParams, withDefault } from 'use-query-params';
 
 const Search = () => {
 
   const [filters, setFilters] = useQueryParams({
     type: withDefault(StringParam, 'exact'),
-    keys: withDefault(StringParam, '')
+    keys: withDefault(DelimitedArrayParam, []),
   })
 
   const location = useLocation();
@@ -27,7 +27,7 @@ const Search = () => {
 
   const { onOpen: onOpenSimilar, onClose: onCloseSimilar, isOpen: isOpenSimilar } = useDisclosure()
 
-  const { data: dataSearch, isLoading: isLoadingSearch } = useSWR(searchQuery && `user/ai/search?content=${filters?.keys || searchQuery}&search_type=${filters?.type}&size=100&from_=0`)
+  const { data: dataSearch, isLoading: isLoadingSearch } = useSWR(searchQuery && `user/ai/search?content=${filters?.keys?.join(' ') || searchQuery}&search_type=${filters?.type}&size=100&from_=0`)
 
   useEffect(() => {
     document.title = searchQuery || 'جستجو در احادیث';

@@ -7,7 +7,7 @@ import { IoBookmarksOutline } from "react-icons/io5";
 import { AiOutlineMenu } from "react-icons/ai";
 import SearchBox2 from './Search/SearchBox2'
 import { useLocation, useNavigate } from 'react-router-dom';
-import { StringParam, useQueryParams, withDefault } from 'use-query-params';
+import { DelimitedArrayParam, StringParam, useQueryParams, withDefault } from 'use-query-params';
 import { useEffect, useState } from 'react';
 import useSWR from 'swr';
 
@@ -29,13 +29,15 @@ const HeaderSearch = () => {
     }))
   }
 
-  const handleSelect = (key, val) => {
-    if (enabledKeys[key]) {
-      // Do something with selected val
-      setSearchKeys(val)
-      setFilters({ keys: val })
-      console.log('Selected:', val, enabledKeys)
-    }
+
+  const handleSelect = (val) => {
+    const currentKeys = filters.keys || [];
+
+    const newKeys = currentKeys.includes(val)
+      ? currentKeys.filter(k => k !== val) // remove if already selected
+      : [...currentKeys, val]; // add if not selected
+
+    setFilters({ keys: newKeys });
   }
 
   const navigate = useNavigate()
@@ -52,7 +54,7 @@ const HeaderSearch = () => {
   const [filters, setFilters] = useQueryParams({
     type: withDefault(StringParam, 'exact'),
     q: withDefault(StringParam, ''),
-    keys: withDefault(StringParam, '')
+    keys: withDefault(DelimitedArrayParam, []),
   })
 
   return (
@@ -175,10 +177,10 @@ const HeaderSearch = () => {
                             <WrapItem key={val}>
                               <Button
                                 variant="outline"
-                                colorScheme={enabledKeys[item] ? 'gray' : 'gray'}
                                 isDisabled={!enabledKeys[item]} // disable if switch is off
-                                onClick={() => handleSelect(item, val)}
-                                isActive={filters?.keys == val && true}
+                                onClick={() => handleSelect(val)}
+                                colorScheme={filters.keys?.includes(val) ? 'gray' : 'gray'}
+                                isActive={filters.keys?.includes(val) && 'gray'}
                               >
                                 {val}
                               </Button>
