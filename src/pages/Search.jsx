@@ -14,6 +14,7 @@ const Search = () => {
 
   const [filters, setFilters] = useQueryParams({
     type: withDefault(StringParam, 'exact'),
+    keys: withDefault(StringParam, '')
   })
 
   const location = useLocation();
@@ -26,7 +27,7 @@ const Search = () => {
 
   const { onOpen: onOpenSimilar, onClose: onCloseSimilar, isOpen: isOpenSimilar } = useDisclosure()
 
-  const { data: dataSearch, isLoading: isLoadingSearch } = useSWR(searchQuery && `user/ai/search?content=${searchQuery}&search_type=${filters?.type}&size=100&from_=0`)
+  const { data: dataSearch, isLoading: isLoadingSearch } = useSWR(searchQuery && `user/ai/search?content=${filters?.keys || searchQuery}&search_type=${filters?.type}&size=100&from_=0`)
 
   useEffect(() => {
     document.title = searchQuery || 'جستجو در احادیث';

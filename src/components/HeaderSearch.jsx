@@ -33,7 +33,7 @@ const HeaderSearch = () => {
     if (enabledKeys[key]) {
       // Do something with selected val
       setSearchKeys(val)
-      setFilters({ q: val })
+      setFilters({ keys: val })
       console.log('Selected:', val, enabledKeys)
     }
   }
@@ -42,7 +42,7 @@ const HeaderSearch = () => {
   const location = useLocation()
   const queryParams = new URLSearchParams(location.search);
   const searchQuery = queryParams.get('q');
-  const { data: dataSearch, isLoading: isLoadingSearch } = useSWR(searchQuery && `user/ai/synonyms?content=${searchKeys || searchQuery || ''}`)
+  const { data: dataSearch, isLoading: isLoadingSearch } = useSWR(searchQuery && `user/ai/synonyms?content=${searchQuery || ''}`)
 
 
   const handleLinkClick = (link) => {
@@ -52,6 +52,7 @@ const HeaderSearch = () => {
   const [filters, setFilters] = useQueryParams({
     type: withDefault(StringParam, 'exact'),
     q: withDefault(StringParam, ''),
+    keys: withDefault(StringParam, '')
   })
 
   return (
@@ -149,10 +150,10 @@ const HeaderSearch = () => {
             <Menu>
               <MenuButton
                 colorScheme='green'
-                
+
                 as={Button}
                 _focus={{ outline: 'none' }} _focusVisible={{ boxShadow: 'none' }}
-                height={'56px'} w={'100px'} fontSize={'14px'} border={'1'} borderColor={'#D9D9D9'} borderRadius={'12px'} bgColor={'white'} color={'#8A92A8'} _active={{color:'white'}}>
+                height={'56px'} w={'100px'} fontSize={'14px'} border={'1'} borderColor={'#D9D9D9'} borderRadius={'12px'} bgColor={'white'} color={'#8A92A8'} _active={{ color: 'white' }}>
                 مترادف
               </MenuButton>
 
@@ -177,6 +178,7 @@ const HeaderSearch = () => {
                                 colorScheme={enabledKeys[item] ? 'gray' : 'gray'}
                                 isDisabled={!enabledKeys[item]} // disable if switch is off
                                 onClick={() => handleSelect(item, val)}
+                                isActive={filters?.keys == val && true}
                               >
                                 {val}
                               </Button>
