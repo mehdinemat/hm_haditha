@@ -13,7 +13,7 @@ import { DelimitedArrayParam, StringParam, useQueryParams, withDefault } from 'u
 const Search = () => {
 
   const [filters, setFilters] = useQueryParams({
-    type: withDefault(StringParam, 'exact'),
+    type: withDefault(StringParam, 'exact_'),
     keys: withDefault(DelimitedArrayParam, []),
   })
 
@@ -21,13 +21,13 @@ const Search = () => {
 
   // Parse query parameters
   const queryParams = new URLSearchParams(location.search);
-  const searchQuery = queryParams.get('q');
+  const searchQuery = queryParams.get('content');
 
   const [selectedHadith, setSelectedHadith] = useState('')
 
   const { onOpen: onOpenSimilar, onClose: onCloseSimilar, isOpen: isOpenSimilar } = useDisclosure()
 
-  const { data: dataSearch, isLoading: isLoadingSearch } = useSWR(searchQuery && `user/ai/search?content=${filters?.keys?.join(' ') || searchQuery}&search_type=${filters?.type}&size=100&from_=0`)
+  const { data: dataSearch, isLoading: isLoadingSearch } = useSWR(searchQuery && `user/ai/search?content=${filters?.keys?.join(' ') || searchQuery}&search_config=${filters?.type}&size=100&from_=0`)
 
   useEffect(() => {
     document.title = searchQuery || 'جستجو در احادیث';

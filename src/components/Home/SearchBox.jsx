@@ -10,9 +10,10 @@ const SearchBox = () => {
 
   const navigate = useNavigate()
 
-  const handleSearch = () => {
-    navigate(`/search?q=${query}`)
+ const handleSearch = (type = 'exact_') => {
+    navigate(`/search?content=${query}&type=${type}`)
   }
+
 
   return (
     <Center mt={{ base: '20px', md: '104px' }}>

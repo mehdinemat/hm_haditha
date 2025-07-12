@@ -21,6 +21,8 @@ const HeaderSearch = () => {
 
   const [enabledKeys, setEnabledKeys] = useState({})
   const [searchKeys, setSearchKeys] = useState('')
+  const [query, setQuery] = useState('')
+
 
   const toggleKey = (key) => {
     setEnabledKeys((prev) => ({
@@ -43,7 +45,7 @@ const HeaderSearch = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const queryParams = new URLSearchParams(location.search);
-  const searchQuery = queryParams.get('q');
+  const searchQuery = queryParams.get('content');
   const { data: dataSearch, isLoading: isLoadingSearch } = useSWR(searchQuery && `user/ai/synonyms?content=${searchQuery || ''}`)
 
 
@@ -52,10 +54,14 @@ const HeaderSearch = () => {
   }
 
   const [filters, setFilters] = useQueryParams({
-    type: withDefault(StringParam, 'exact'),
+    type: withDefault(StringParam, 'exact_'),
     q: withDefault(StringParam, ''),
     keys: withDefault(DelimitedArrayParam, []),
   })
+
+  const handleSearch = (type = 'exact_') => {
+    navigate(`/search?content=${query}&type=${type}`)
+  }
 
   return (
     <Stack w={'100%'} height={'180px'}
@@ -144,9 +150,12 @@ const HeaderSearch = () => {
       <Container maxW="1180px" mt={'20px'} >
 
         <HStack w={'100%'} alignItems={'start'} justifyContent={'space-between'}>
-          <SearchBox2 />
+          <SearchBox2 query={query} setQuery={setQuery} />
           <HStack mt={'74px'}>
-            <Button leftIcon={<IoDiamond />} height={'56px'} w={'100px'} bgColor={filters?.type == 'semantic' ? 'green.500' : 'white'} color={filters?.type == 'semantic' ? 'white' : '#8A92A8'} fontSize={'14px'} border={'1'} borderColor={'#D9D9D9'} borderRadius={'12px'} onClick={e => setFilters({ type: 'semantic' })} colorScheme='green' _focus={{ outline: 'none' }} _focusVisible={{ boxShadow: 'none' }}>معنایی</Button>
+            <Button leftIcon={<IoDiamond />} height={'56px'} w={'100px'} bgColor={filters?.type == 'semantic_bge' ? 'green.500' : 'white'} color={filters?.type == 'semantic_bge' ? 'white' : '#8A92A8'} fontSize={'14px'} border={'1'} borderColor={'#D9D9D9'} borderRadius={'12px'} onClick={e => {
+              setFilters({ type: 'semantic_bge' })
+              handleSearch('semantic_bge')
+            }} colorScheme='green' _focus={{ outline: 'none' }} _focusVisible={{ boxShadow: 'none' }}>معنایی</Button>
             <Button height={'56px'} w={'100px'} bgColor={'white'} color={'#8A92A8'} fontSize={'14px'} border={'1'} borderColor={'#D9D9D9'} borderRadius={'12px'}>نوع</Button>
 
             <Menu>
@@ -194,7 +203,11 @@ const HeaderSearch = () => {
               </MenuList>
             </Menu>
             {/* <Button height={'56px'} w={'100px'} bgColor={'white'} color={'#8A92A8'} fontSize={'14px'} border={'1'} borderColor={'#D9D9D9'} borderRadius={'12px'}>مترادف</Button> */}
-            <Button height={'56px'} w={'100px'} fontSize={'14px'} border={'1'} borderColor={'#D9D9D9'} borderRadius={'12px'} onClick={e => setFilters({ type: 'exact' })} colorScheme='green' bgColor={filters?.type == 'exact' ? 'green.500' : 'white'} color={filters?.type == 'exact' ? 'white' : '#8A92A8'} _focus={{ outline: 'none' }} _focusVisible={{ boxShadow: 'none' }}>عین عبارت</Button>
+            <Button height={'56px'} w={'100px'} fontSize={'14px'} border={'1'} borderColor={'#D9D9D9'} borderRadius={'12px'} onClick={e => {
+              setFilters({ type: 'exact_' })
+              handleSearch('exact_')
+            }
+            } colorScheme='green' bgColor={filters?.type == 'exact_' ? 'green.500' : 'white'} color={filters?.type == 'exact_' ? 'white' : '#8A92A8'} _focus={{ outline: 'none' }} _focusVisible={{ boxShadow: 'none' }}>عین عبارت</Button>
           </HStack>
         </HStack>
       </Container>

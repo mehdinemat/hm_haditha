@@ -4,14 +4,13 @@ import { IoAdd, IoSearch } from 'react-icons/io5'
 import { CiSearch } from "react-icons/ci";
 import { useNavigate } from 'react-router-dom';
 
-const SearchBox2 = () => {
+const SearchBox2 = ({query, setQuery}) => {
 
   const navigate = useNavigate()
 
-  const [query, setQuery] = useState('')
 
   const handleSearch = () => {
-    navigate(`/search?q=${query}`)
+    navigate(`/search?content=${query}`)
   }
 
   return (
