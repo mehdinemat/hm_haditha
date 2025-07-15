@@ -1,6 +1,6 @@
 import { Box, Flex, Text, Button, HStack, IconButton, Menu, MenuList, MenuDivider, MenuItem, MenuButton, Stack, Container, Checkbox, Switch, VStack, Wrap, WrapItem } from '@chakra-ui/react'
 import { CiSearch } from "react-icons/ci";
-import { IoAdd, IoBookOutline, IoDiamond } from "react-icons/io5";
+import { IoAdd, IoArrowDown, IoBookOutline, IoCheckmarkDone, IoDiamond } from "react-icons/io5";
 import { MdVoiceChat } from "react-icons/md";
 import { GoHome } from "react-icons/go";
 import { IoBookmarksOutline } from "react-icons/io5";
@@ -10,6 +10,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { DelimitedArrayParam, StringParam, useQueryParams, withDefault } from 'use-query-params';
 import { useEffect, useState } from 'react';
 import useSWR from 'swr';
+import { MdKeyboardArrowDown } from "react-icons/md";
 
 const menuList = [
   { title: '', icon: <GoHome />, link: '/' },
@@ -152,10 +153,27 @@ const HeaderSearch = () => {
         <HStack w={'100%'} alignItems={'start'} justifyContent={'space-between'}>
           <SearchBox2 query={query} setQuery={setQuery} />
           <HStack mt={'74px'}>
-            <Button leftIcon={<IoDiamond />} height={'56px'} w={'100px'} bgColor={filters?.type == 'semantic_bge' ? 'green.500' : 'white'} color={filters?.type == 'semantic_bge' ? 'white' : '#8A92A8'} fontSize={'14px'} border={'1'} borderColor={'#D9D9D9'} borderRadius={'12px'} onClick={e => {
+            {/* <Button leftIcon={<IoDiamond />} height={'56px'} w={'120px'} bgColor={filters?.type == 'semantic_bge' ? 'green.500' : 'white'} color={filters?.type == 'semantic_bge' ? 'white' : '#8A92A8'} fontSize={'14px'} border={'1'} borderColor={'#D9D9D9'} borderRadius={'12px'} onClick={e => {
               setFilters({ type: 'semantic_bge' })
               handleSearch('semantic_bge')
-            }} colorScheme='green' _focus={{ outline: 'none' }} _focusVisible={{ boxShadow: 'none' }}>معنایی</Button>
+            }} colorScheme='green' _focus={{ outline: 'none' }} _focusVisible={{ boxShadow: 'none' }}>معنایی bge</Button> */}
+
+            <Menu>
+              <MenuButton as={Button} rightIcon={<MdKeyboardArrowDown />} height={'56px'} w={'100px'} bgColor={(filters?.type == 'semantic_bge' || filters?.type == 'semantic_fathi') ? 'green.500' : 'white'} color={(filters?.type == 'semantic_bge' || filters?.type == 'semantic_fathi') ? 'white' : '#8A92A8'} fontSize={'14px'} border={'1'} borderColor={'#D9D9D9'} borderRadius={'12px'}>
+                معنایی
+              </MenuButton>
+              <MenuList>
+                <MenuItem icon={filters?.type == 'semantic_bge' && <IoCheckmarkDone />} onClick={e => {
+                  setFilters({ type: 'semantic_bge' })
+                  handleSearch('semantic_bge')
+                }}>معنایی bge</MenuItem>
+                <MenuItem icon={filters?.type == 'semantic_fathi' && <IoCheckmarkDone />} onClick={e => {
+                  setFilters({ type: 'semantic_fathi' })
+                  handleSearch('semantic_fathi')
+                }}>معنایی fathi</MenuItem>
+              </MenuList>
+            </Menu>
+
             <Button height={'56px'} w={'100px'} bgColor={'white'} color={'#8A92A8'} fontSize={'14px'} border={'1'} borderColor={'#D9D9D9'} borderRadius={'12px'}>نوع</Button>
 
             <Menu>
