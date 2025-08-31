@@ -3,6 +3,8 @@ import Home from './pages/Home'
 import Layout from './components/Layout'
 import LayoutSearch from './components/LayoutSearch'
 import Search from './pages/Search'
+import HadithDetails from './pages/HadithDetails'
+import BookmarkDetails from './pages/BookmarkDetails'
 import Bookmarks from './pages/Bookmarks'
 import Library from './pages/Library'
 import ChatBot from './pages/ChatBot'
@@ -24,11 +26,15 @@ function App() {
           <Routes>
             <Route element={<Layout />}>
               <Route path="/" element={<Home />} />
+              <Route path="/bookmarks/:id" element={<BookmarkDetails />} />
               <Route path="/bookmarks" element={<Bookmarks />} />
               <Route path="/library/:id" element={<Library />} />
               <Route path="/library" element={<Library />} />
-              <Route path='/chatbot' element={<ChatBot />} />
-              <Route path='/chatbot/:id' element={<ChatBotConv />} />
+              <Route path="/search" element={<Search />} />
+              <Route path="/hadith/:id" element={<HadithDetails />} />
+
+              {/* <Route path='/chatbot' element={<ChatBot />} /> */}
+              <Route path='/chatbot' element={<ChatBotConv />} />
               {/* <Route path="/library/:id" element={<LibraryItem />} /> */}
 
               {/* Add more routes here */}
@@ -37,7 +43,6 @@ function App() {
               <Route path="/hadith" element={<Hadith />} />
             </Route>
             <Route element={<LayoutSearch />}>
-              <Route path="/search" element={<Search />} />
               {/* Add more routes here */}
             </Route>
           </Routes>

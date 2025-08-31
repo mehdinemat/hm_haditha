@@ -1,17 +1,17 @@
-import { Badge, Box, Button, Container, Divider, HStack, Icon, IconButton, Image, Input, InputGroup, InputRightAddon, InputRightElement, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Spinner, Text, useDisclosure, VStack } from '@chakra-ui/react'
+import { Badge, Box, Button, Container, Divider, HStack, Icon, IconButton, Image, Input, InputGroup, InputRightAddon, InputRightElement, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Spinner, Stack, Text, useDisclosure, VStack } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import SearchCard from '../components/Search/SearchCard'
 import { useLocation, useNavigate } from 'react-router-dom';
 import useSWR from 'swr';
 import HadithCard from '../components/Hadith/HadithCard';
-import { IoDiamond, IoSearch } from 'react-icons/io5';
+import { IoAdd, IoArrowBack, IoArrowForward, IoDiamond, IoSearch } from 'react-icons/io5';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import Header from '../layouts/Home/Header';
 import { LuSearchX } from "react-icons/lu";
 import { DelimitedArrayParam, StringParam, useQueryParams, withDefault } from 'use-query-params';
 import { GoCopy } from 'react-icons/go';
 
-const Search = () => {
+const BookmarkDetails = () => {
 
   const [filters, setFilters] = useQueryParams({
     type: withDefault(StringParam, 'exact_'),
@@ -43,47 +43,63 @@ const Search = () => {
     <Container maxW="1150px" padding={0}>
 
       <Box height={'100vh'} as={VStack} mt={'100px'}>
-        <HStack w={'100%'} justifyContent={'end'}>
-          <InputGroup bgColor={'#FFFFFD80'} w={'570px'} height={'56px'} borderRadius={'20px'} sx={{
-            borderImageSource:
-              "linear-gradient(215.88deg, #FFFFFF -9.34%, rgba(255, 255, 255, 0.2) 26.78%, rgba(255, 255, 255, 0.1) 68.46%, #FFFFFF 106.25%)",
-            borderImageSlice: 1,
-            boxShadow: `
-          0px 6px 13px 0px #7878780D,
-          0px 24px 24px 0px #7878780A,
-          0px 53px 32px 0px #78787808,
-          0px 94px 38px 0px #78787803,
-          0px 147px 41px 0px #78787800
-        `,
-            backdropFilter: "blur(7px)",
-            background: "rgba(255, 255, 255, 0.05)", // light glass effect
-          }} >
-            <Input height={'100%'} borderRadius={'20px'} />
-            <InputRightElement height={'100%'} ml={'10px'}>
-              <IoSearch color='gray' fontSize={'22px'} />
-            </InputRightElement>
-          </InputGroup>
-        </HStack>
         <HStack w={'100%'} justifyContent={'space-between'}>
-          <VStack w={'100%'} alignItems={'start'}>
-            <HStack w={'100%'} justifyContent={'start'}>
-              <Text fontSize={'30px'} color={'#153F45'}>128 نتیجه برای :</Text>
-              <Text fontSize={'30px'} fontWeight={'bold'} color={'#153F45'}>اهل تقوا</Text>
-            </HStack>
-            <Text fontSize={'20px'} color={'#1D6687'}>#مترادف</Text>
-          </VStack>
-          <Button bgColor={'#FFFFFFBF'} color={'#153F45'} borderRadius={'15px'} width={'142px'} height={'56px'} leftIcon={<Image src='./startsearch.png' height={'20px'} />} sx={{
-            boxShadow: "0px 1px 4px 0px #0000000D",
-          }}>معنایی</Button>
-          <Button bgColor={'#29D3D9'} color={'#153F45'} borderRadius={'15px'} width={'142px'} height={'56px'} leftIcon={<GoCopy />} sx={{
-            boxShadow: "0px 1px 4px 0px #0000000D",
-          }}>مترادف</Button>
-          <Button bgColor={'#FFFFFFBF'} color={'#153F45'} borderRadius={'15px'} width={'142px'} height={'56px'} sx={{
-            boxShadow: "0px 1px 4px 0px #0000000D",
-          }}>عین عبارت</Button>
-          <Button bgColor={'#FFFFFFBF'} color={'#153F45'} borderRadius={'15px'} width={'142px'} height={'56px'} sx={{
-            boxShadow: "0px 1px 4px 0px #0000000D",
-          }}>نوع</Button>
+          <HStack>
+            <IoArrowForward style={{ color: '#319CAA' }} />
+            <Button leftIcon={<IoAdd fontSize={'20px'} />} bgColor={'#319CAA'} height={'32px'} borderRadius={'12px'} mr={'20px'}>دسته‌بندی جدید</Button>
+          </HStack>
+          <HStack>
+            <IconButton icon={<IoArrowForward />} style={{ color: '#319CAA', backgroundColor: '#FFFFFDB2', borderRadius: '10px' }} boxShadow="0px 1px 2px 0px #0000000D,
+                 0px 4px 4px 0px #0000000A,
+                 0px 8px 5px 0px #00000008,
+                 0px 15px 6px 0px #00000003,
+                 0px 23px 6px 0px #00000000"
+            />
+            <IconButton icon={<IoArrowBack />} style={{ color: '#319CAA', backgroundColor: '#FFFFFDB2', borderRadius: '10px' }} boxShadow="0px 1px 2px 0px #0000000D,
+                 0px 4px 4px 0px #0000000A,
+                 0px 8px 5px 0px #00000008,
+                 0px 15px 6px 0px #00000003,
+                 0px 23px 6px 0px #00000000"
+            />
+          </HStack>
+        </HStack>
+        <HStack w={'100%'} justifyContent={'space-between'} gap={'20px'} my={'20px'}>
+          <Box as={HStack} fontSize={'22px'} color={'#153F45'} bgColor={'#F2FFFC99'} boxShadow="0px 3px 6px 0px #0000000D,
+                 0px 11px 11px 0px #0000000A,
+                 0px 24px 14px 0px #00000008,
+                 0px 42px 17px 0px #00000003,
+                 0px 66px 18px 0px #00000000"
+            backdropFilter="blur(20px)" padding={'20px'} borderRadius={'30px'} w={'100%'} height={'80px'} alignItems={'center'} textAlign={'center'} justifyContent='space-between'>
+            <Text>همه احادیث</Text>
+            <IconButton _hover={{ bgColor: 'none' }} icon={<IoArrowBack style={{ transform: "rotate(45deg)" }} fontSize={'22px'} />} color={'#1D6687'} mr={'0px'} variant={'ghost'} bgColor={'white'} borderRadius={'15px'} w={'44px'} h={'44px'} />
+          </Box>
+          <Box as={HStack} fontSize={'22px'} color={'#153F45'} bgColor={'#AFFFC1CC'} boxShadow="0px 3px 6px 0px #0000000D,
+                 0px 11px 11px 0px #0000000A,
+                 0px 24px 14px 0px #00000008,
+                 0px 42px 17px 0px #00000003,
+                 0px 66px 18px 0px #00000000"
+            backdropFilter="blur(20px)" padding={'20px'} borderRadius={'30px'} w={'100%'} height={'80px'} alignItems={'center'} justifyContent={'space-between'} textAlign={'center'}>
+            <Text>احادیث امامت</Text>
+            <IconButton _hover={{ bgColor: 'none' }} icon={<IoArrowBack style={{ transform: "rotate(45deg)" }} fontSize={'22px'} />} color={'#1D6687'} mr={'0px'} variant={'ghost'} bgColor={'#FFFFFF80'} borderRadius={'15px'} w={'44px'} h={'44px'} />
+          </Box>
+          <Box as={HStack} fontSize={'22px'} color={'#153F45'} bgColor={'#FCFFF299'} boxShadow="0px 3px 6px 0px #0000000D,
+                 0px 11px 11px 0px #0000000A,
+                 0px 24px 14px 0px #00000008,
+                 0px 42px 17px 0px #00000003,
+                 0px 66px 18px 0px #00000000"
+            backdropFilter="blur(20px)" padding={'20px'} borderRadius={'30px'} w={'100%'} height={'80px'} alignItems={'center'} justifyContent={'space-between'} textAlign={'center'}>
+            <Text>احادیث معاد</Text>
+            <IconButton _hover={{ bgColor: 'none' }} icon={<IoArrowBack style={{ transform: "rotate(45deg)" }} fontSize={'22px'} />} color={'#1D6687'} mr={'0px'} variant={'ghost'} bgColor={'#FFFFFF80'} borderRadius={'15px'} w={'44px'} h={'44px'} />
+          </Box>
+          <Box as={HStack} fontSize={'22px'} color={'#153F45'} bgColor={'#F5F2FF99'} boxShadow="0px 3px 6px 0px #0000000D,
+                 0px 11px 11px 0px #0000000A,
+                 0px 24px 14px 0px #00000008,
+                 0px 42px 17px 0px #00000003,
+                 0px 66px 18px 0px #00000000"
+            backdropFilter="blur(20px)" padding={'20px'} borderRadius={'30px'} w={'100%'} height={'80px'} alignItems={'center'} justifyContent={'space-between'} textAlign={'center'}>
+            <Text>احادیث جهاد</Text>
+            <IconButton _hover={{ bgColor: 'none' }} icon={<IoArrowBack style={{ transform: "rotate(45deg)" }} fontSize={'22px'} />} color={'#1D6687'} mr={'0px'} variant={'ghost'} bgColor={'#FFFFFF80'} borderRadius={'15px'} w={'44px'} h={'44px'} />
+          </Box>
         </HStack>
 
         <VStack w={'100%'} gap={'30px'}>
@@ -107,6 +123,7 @@ const Search = () => {
             <Text fontSize={'20px'} fontWeight={'bold'} color={'#153F45'}>التَّوْحِيدُ أَنْ لَا تُجَوِّزَ عَلَى رَبِّكَ مَا جَازَ عَلَيْكَ</Text>
             <Text fontSize={'18px'} fontWeight={'bold'} color={'#787878'}>توحید آن است که برای پروردگارت چیزی را تقوی ممکن ندانی مناجات که برای خودت ممکن می‌دانی.</Text>
             <Badge padding={'5px'} borderRadius={'10px'} bgColor={'#C4C2C033'}>الکافی، جلد ۱، صفحه ۱۰۳</Badge>
+            <IconButton position={'absolute'} left={'20px'} _hover={{ bgColor: 'none' }} icon={<IoArrowBack style={{ transform: "rotate(45deg)" }} fontSize={'22px'} />} color={'#1D6687'} mr={'0px'} variant={'ghost'} bgColor={'white'} borderRadius={'15px'} w={'25px'} h={'25px'} />
           </Box>
           <Box w={'100%'} position={'relative'} bgColor={'#FFFFFD80'} padding={'17px'} as={VStack} alignItems={'start'} gap={'15px'} sx={{
             borderImageSource:
@@ -280,4 +297,4 @@ const Search = () => {
   )
 }
 
-export default Search
+export default BookmarkDetails

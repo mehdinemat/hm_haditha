@@ -1,123 +1,119 @@
-import { Box, Button, Container, Divider, Grid, GridItem, Heading, HStack, IconButton, Image, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Spinner, Stack, Text, useDisclosure, VStack } from '@chakra-ui/react'
+import { Box, Button, Container, Divider, Flex, Grid, GridItem, Heading, HStack, IconButton, Image, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Spinner, Stack, Text, useDisclosure, VStack } from '@chakra-ui/react'
 import React, { useEffect } from 'react'
-import SearchCard from '../components/Search/SearchCard'
-import { IoClose, IoEllipsisVerticalCircleSharp, IoSearch } from 'react-icons/io5'
-import { IoListSharp } from "react-icons/io5";
-import { CiSearch } from "react-icons/ci";
-import Footer from '../components/Library/Footer'
-import api from '../components/lib/api'
-import useSWR from 'swr';
-import { BooleanParam, NumberParam, StringParam, useQueryParams, withDefault } from 'use-query-params';
-import { useNavigate, useParams } from 'react-router-dom';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
 
-function parseXML(xmlString) {
-  const parser = new DOMParser();
-  const xmlDoc = parser.parseFromString(xmlString, 'text/xml');
+const images = [
+  {
+    url: "/Book-2.png",
+    title: "حجت‌الاسلام خسروپناه",
 
-  const H = xmlDoc.getElementsByTagName('H')[0];
-  const num = H.getAttribute('Num');
-  const on = H.getElementsByTagName('ON')[0]?.textContent;
-  const t = H.getElementsByTagName('T')[0]?.textContent;
-  const foot = H.getElementsByTagName('FOOT')[0]?.textContent;
+  },
+  {
+    url: "/Book-2.png",
+    title: "حجت‌الاسلام خسروپناه",
 
-  const text = H.textContent;
+  },
+  {
+    url: "/Book-2.png",
+    title: "حجت‌الاسلام خسروپناه",
 
-  return { num, on, t, foot, fullText: text };
-}
+  },
+];
 
+const settings = {
+  dots: true,
+  infinite: true,
+  speed: 1000,
+  slidesToShow: 4,
+  slidesToScroll: 1,
+  arrows: true,
+  autoplay: true,
+  autoplaySpeed: 100000,
+};
 
 const Library = () => {
 
-  const [filters, setFilters] = useQueryParams({
-    book_id: withDefault(StringParam, ''),
-    page: withDefault(NumberParam, 1)
-  })
-
-  const { id } = useParams();
-  const navigate = useNavigate()
-
-  const { isOpen, onOpen, onClose } = useDisclosure()
-
-  const { data: dataLibrary, isLoading: isLoadingLibrary } = useSWR(`user/book`)
-  const { data: dataBookContent, isLoading: isLoadingLibraryContent } = useSWR((filters?.book_id || id) && `user/book/${filters?.book_id || id}/content?size=1&page=${filters?.page}`)
-  // const { num, on, t, foot, fullText } = parseXML(dataBookContent?.data?.hits?.[9]?.xml || '');
-
-  useEffect(() => {
-    if (id) {
-      onOpen()
-    }
-  }, [id])
-
   return (
-    <Container maxW="1150px">
-      <VStack w={'100%'} alignItems={'start'} my={'16px'}>
-        <Grid templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(5, 1fr)' }} gap={'40px'} height={'100%'} mt={{ base: '20px', md: '100px' }} w={'100%'}>
-          {
-            dataLibrary?.data?.hits?.map((item) => (
-              <GridItem as={Stack} w={'100%'} onClick={e => navigate(`/library/${item?.id}`)} alignItems={'center'} justifyContent={'center'}>
-                <Image src='/kafi.webp' maxW={{ base: '100px', md: '100%' }} h={'auto'} onClick={onOpen} bgColor={'#D9D9D9'} cursor={'pointer'} />
-                <Text>{item?.book_title}</Text>
-                <Text fontSize={'xs'}>جلد {item?.vol_num}</Text>
-              </GridItem>
-            ))
-          }
-        </Grid>
-      </VStack>
+    <Container maxW="1150px" padding={0}>
+      <Box height={'100vh'} as={VStack} mt={'100px'}>
+        <Text fontSize={'30px'} color={'#153F45'}>کتابخانه حدیثا</Text>
+        <Box position="relative" w="100%" > {/* parent container */}
+          <Image
+            src="/book_wood.png"
+            position="absolute"
+            bottom="-270px"
+            left="0"
+            width="100%"      // stretch to parent's width
+            objectFit="cover" // crop if needed
+            zIndex={1}
+          />
 
-      <Modal isOpen={isOpen} onClose={onClose} size={'full'}>
-        <ModalOverlay />
 
-        <ModalContent>
-          <ModalBody>
-            <Container maxW="1150px">
-              <VStack w={'100%'} alignItems={'start'}>
-                <HStack w={'100%'} justifyContent={'space-between'}>
-                  <HStack>
-                    <IconButton icon={<IoListSharp />} variant={'ghost'} colorScheme='gray' fontSize={'24px'} />
-                    <Text bgGradient="linear(268.94deg, #D284FF -0.65%, #4D00FF 104.59%)"
-                      bgClip="text"
-                      fontWeight="bold">اصول کافی، جلد ۱</Text>
-                  </HStack>
-                  <HStack>
-                    <IconButton icon={<CiSearch />} variant={'ghost'} fontSize={'24px'} colorScheme='gray' />
-                    <IconButton icon={<IoClose />} variant={'ghost'} fontSize={'24px'} colorScheme='gray' onClick={onClose} />
-                  </HStack>
-                </HStack>
-              </VStack>
-              <Divider mt={'10px'} />
-              {/* <Box p={4} borderWidth="1px" borderRadius="lg">
-                <Heading size="md" mb={2}>
-                  Reference Number: {num}
-                </Heading>
+          {/* Slider */}
+          <Box position="relative" zIndex={2} w={'100%'} > {/* higher than background */}
+            <Slider {...settings}>
+              {images.map((item, index) => (
+                <Box key={index} px="25px" position="relative" >
+                  <Box
+                    w="464px"
+                    borderRadius="40px"
+                    mx="auto"
+                    padding={'40px'}
 
-                <Text fontWeight="bold" mb={2}>
-                  Source: {on}
-                </Text>
+                  >
+                    <Flex direction="column" align="end" w={'100%'} justify="center" textAlign="center">
+                      <Text
+                        color="#FFFFFF"
+                        width="100%"
+                        fontWeight="300"
+                        fontSize="16px"
+                        textAlign={'justify'}
+                        dir="rtl"
+                      >
+                        {item.caption}
+                      </Text>
+                      <HStack w={'100%'} justifyContent={'space-between'} >
+                        <HStack alignItems={'start'} gap={0} >
+                          <VStack w={'100%'} alignItems={'end'} justifyContent={'end'}>
+                            <Text fontSize="12px" fontWeight="400" color="#FFFFFF">{item.title}</Text>
+                            <Text color="#FFFFFF" fontSize="10px" fontWeight="300" mb="24px">{item?.subTitle}</Text>
+                          </VStack>
+                          <Image
+                            src={item.url}
+                            alt={item.title}
+                            width="227px"
+                            height="335px"
+                            objectFit="cover"
+                          />
+                        </HStack>
+                      </HStack>
+                    </Flex>
+                  </Box>
+                </Box>
+              ))}
+            </Slider>
+          </Box>
+        </Box>
 
-                <Text mb={2}>{t}</Text>
+        <Box bgColor={'#FFFFFD4D'} mt={'40px'} w={'100%'} border="1px solid"
+          sx={{
+            borderImageSource:
+              "linear-gradient(215.88deg, #FFFFFF -9.34%, rgba(255, 255, 255, 0) 26.78%, rgba(255, 255, 255, 0) 63.46%, #FFFFFF 106.25%)",
+            backdropFilter: "blur(20px)",
+            boxShadow: `
+      0px 9px 19px 0px #0000000D,
+      0px 34px 34px 0px #0000000A,
+      0px 77px 46px 0px #00000008,
+      0px 138px 55px 0px #00000003,
+      0px 215px 60px 0px #00000000
+    `,
+          }} borderRadius={'50px'} padding={'30px'}>
+          <Text color={'#153F45'} fontSize={'30px'}>دسته بندی کتاب‌ها</Text>
+        </Box>
 
-                <Divider my={2} />
-
-                <Text fontStyle="italic" color="gray.600" mb={2}>
-                  Footnote: {foot}
-                </Text>
-
-                <Divider my={2} />
-
-                <Text whiteSpace="pre-wrap">{fullText}</Text>
-              </Box> */}
-              {isLoadingLibraryContent ? <Spinner /> : <Text mt={'50px'} fontSize={'20px'} lineHeight={'40px'} fontWeight={'400'}>{dataBookContent?.data?.hits?.[0]?.content}</Text>}
-            </Container>
-          </ModalBody>
-          <ModalFooter>
-            <Container maxW="1150px">
-              <Footer total={dataBookContent?.data?.total?.value} page={filters?.page} setFilters={setFilters} />
-            </Container>
-
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
-
+      </Box>
     </Container>
   )
 }
