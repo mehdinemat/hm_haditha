@@ -10,7 +10,6 @@ const Layout = ({ children }) => {
 
   return (
     <Box backgroundImage="url('/bg.png')"
-      backgroundRepeat="no-repeat"
       backgroundSize="contain"
       backgroundPosition="start" height={'100vh'}>
       {slidesToShow == 1 ? <HeaderMobile /> : <Header />}

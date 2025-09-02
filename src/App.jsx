@@ -16,6 +16,8 @@ import { fetcher } from './components/lib/api'
 import { ReactRouter6Adapter } from 'use-query-params/adapters/react-router-6';
 import { QueryParamProvider } from 'use-query-params';
 import ChatBotConv from './pages/ChatBotConv'
+import Login from './pages/Login'
+import Register from './pages/Register'
 
 function App() {
   return (
@@ -32,6 +34,8 @@ function App() {
               <Route path="/library" element={<Library />} />
               <Route path="/search" element={<Search />} />
               <Route path="/hadith/:id" element={<HadithDetails />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
 
               {/* <Route path='/chatbot' element={<ChatBot />} /> */}
               <Route path='/chatbot' element={<ChatBotConv />} />

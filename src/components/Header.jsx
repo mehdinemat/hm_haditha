@@ -10,17 +10,17 @@ import { useEffect } from 'react';
 
 
 const menuList = [
-  { title: 'صفحه اصلی', icon: './home-2.png', active_icon: './home-2.png', link: '/' },
+  { title: 'صفحه اصلی', icon: '/home-2.png', active_icon: '/home-2.png', link: '/' },
   // { title: 'جستجو', icon: './home_2.png', link: '/search' },
-  { title: 'چت بات', icon: './message.png', active_icon: './message_active.png', link: '/chatbot' },
-  { title: 'کتابخانه', icon: './book.png', active_icon: './book_active.png', link: '/library' },
+  { title: 'چت بات', icon: '/message.png', active_icon: '/message_active.png', link: '/chatbot' },
+  { title: 'کتابخانه', icon: '/book.png', active_icon: '/book_active.png', link: '/library' },
 ]
 
 const menuList2 = [
-  { title: '', icon: './search_normal.png', link: '/chatbot' },
-  { title: '', icon: './save.png', link: '/' },
-  { title: '', icon: './logout.png', link: '/' },
-  { title: '', icon: './menu.png', link: '/' },
+  { title: '', icon: '/search_normal.png', link: '/chatbot' },
+  { title: '', icon: '/save.png', link: '/' },
+  { title: '', icon: '/logout.png', link: '/' },
+  { title: '', icon: '/menu.png', link: '/' },
 ]
 
 const Header = () => {
@@ -57,7 +57,7 @@ const Header = () => {
       <Flex justify="space-between" align="center" height='100%'>
         <Flex as={HStack} justifyContent={'space-between'} gap={4} w={'100%'} height='100%'>
           <HStack gap={'20px'}>
-            <Image src='./logo_h_2.png' height={'58px'} w={'58px'} />
+            <Image src='/logo_h_2.png' height={'58px'} w={'58px'} />
             {
               menuList?.map((item) => (
                 <Button

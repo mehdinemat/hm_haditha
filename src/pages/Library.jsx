@@ -3,6 +3,8 @@ import React, { useEffect } from 'react'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
+import { IoArrowBack, IoSearch } from 'react-icons/io5';
+import { IoIosArrowBack } from 'react-icons/io';
 
 const images = [
   {
@@ -22,6 +24,15 @@ const images = [
   },
 ];
 
+const category  = [
+  {title:'علوم قرآنی' , details:'128 کتاب' } , 
+  {title:'فقه و احکام' , details:'128 کتاب' } , 
+  {title:'امامت و ولایت' , details:'128 کتاب' } , 
+  {title:'کتب رجالی' , details:'128 کتاب' } , 
+  {title:'علوم قرآنی' , details:'128 کتاب' } , 
+  {title:'فقه و احکام' , details:'128 کتاب' } , 
+]
+
 const settings = {
   dots: true,
   infinite: true,
@@ -36,8 +47,8 @@ const settings = {
 const Library = () => {
 
   return (
-    <Container maxW="1150px" padding={0}>
-      <Box height={'100vh'} as={VStack} mt={'100px'}>
+    <Container maxW="1150px" padding={0} mb={'200px'} >
+      <Box  as={VStack} mt={'100px'} >
         <Text fontSize={'30px'} color={'#153F45'}>کتابخانه حدیثا</Text>
         <Box position="relative" w="100%" > {/* parent container */}
           <Image
@@ -110,9 +121,191 @@ const Library = () => {
       0px 215px 60px 0px #00000000
     `,
           }} borderRadius={'50px'} padding={'30px'}>
-          <Text color={'#153F45'} fontSize={'30px'}>دسته بندی کتاب‌ها</Text>
-        </Box>
+          <HStack w={'100%'} justifyContent={'space-between'} mb={'30px'}>
+          <Text color={'#153F45'} fontSize={'30px'} >دسته بندی کتاب‌ها</Text>
+          <HStack cursor={'pointer'} alignItems={'center'} color={'#1D6687'}>
+          <Text>همه دسته‌ها</Text>
+          <IoIosArrowBack/>
+          </HStack>
+          </HStack>
+          <HStack w={'100%'} justifyContent={'space-between'} mb={'75px'}>
+            {
+              category?.map((item)=>(
+            <Box bgColor={'#F2FFFC99'} padding={'20px'} borderRadius={'30px'} height={'200px'} w={'170px'} sx={{
+        boxShadow: `
+          0px 3px 6px 0px #0000000D,
+          0px 11px 11px 0px #0000000A,
+          0px 24px 14px 0px #00000008,
+          0px 42px 17px 0px #00000003,
+          0px 66px 18px 0px #00000000
+        `,
+        backdropFilter: "blur(20px)"
+      }}>
+              <Text fontSize={'22px'} color={'#153F45'}>{item?.title}</Text>
+              <Text fontSize={'16px'} color={'#153F45'} mt={'15px'}>{item?.details}</Text>
+              <IconButton h={'44px'}  w={'42px'} icon={<IoArrowBack style={{ transform: "rotate(45deg)" }} fontSize={'20px'} />} borderRadius={'15px'} bgColor={'#FFFFFF80'} color={'#1D6687'} bottom={'20px'} left={'20px'} position={'absolute'} />
 
+            </Box>
+
+              ))
+            }
+          </HStack>
+          <VStack w={'100%'} justifyContent={'space-between'}>
+                  <HStack w={'100%'} justifyContent={'space-between'} mb={'30px'}>
+                    <Text fontSize={'30px'} color={'#153F45'}>745 کتاب</Text>
+                    <HStack fontSize={'20px'} color={'#1D6687'}>
+                    <Text>جستجو کتاب</Text>
+                    <IoSearch/>
+                    </HStack>
+                  </HStack>
+
+
+                  <Grid templateColumns='repeat(5, 1fr)' gap={6} w={'100%'}>
+                    <VStack alignItems={'start'} color={'#153F45'} >
+                    <Image src='/book_cat.png' w={'154px'} h={'228px'} sx={{
+    boxShadow: `
+      0px 1px 3px 0px #0000001A,
+      0px 6px 6px 0px #00000017,
+      0px 13px 8px 0px #0000000D,
+      0px 23px 9px 0px #00000003,
+      0px 36px 10px 0px #00000000
+    `,
+    backdropFilter: "blur(20px)",
+  }}/>
+                    <Text fontSize={'18px'} color={'#153F45'}>نام کتاب</Text>
+                    <Text fontSize={'12px'} color={'#153F45'}>جلد 1</Text>
+                    </VStack>
+                    <VStack alignItems={'start'} color={'#153F45'} >
+                    <Image src='/book_cat.png' w={'154px'} h={'228px'} sx={{
+    boxShadow: `
+      0px 1px 3px 0px #0000001A,
+      0px 6px 6px 0px #00000017,
+      0px 13px 8px 0px #0000000D,
+      0px 23px 9px 0px #00000003,
+      0px 36px 10px 0px #00000000
+    `,
+    backdropFilter: "blur(20px)",
+  }}/>
+                    <Text fontSize={'18px'} color={'#153F45'}>نام کتاب</Text>
+                    <Text fontSize={'12px'} color={'#153F45'}>جلد 1</Text>
+                    </VStack>
+                    <VStack alignItems={'start'} color={'#153F45'} >
+                    <Image src='/book_cat.png' w={'154px'} h={'228px'} sx={{
+    boxShadow: `
+      0px 1px 3px 0px #0000001A,
+      0px 6px 6px 0px #00000017,
+      0px 13px 8px 0px #0000000D,
+      0px 23px 9px 0px #00000003,
+      0px 36px 10px 0px #00000000
+    `,
+    backdropFilter: "blur(20px)",
+  }}/>
+                    <Text fontSize={'18px'} color={'#153F45'}>نام کتاب</Text>
+                    <Text fontSize={'12px'} color={'#153F45'}>جلد 1</Text>
+                    </VStack>
+                    <VStack alignItems={'start'} color={'#153F45'} >
+                    <Image src='/book_cat.png' w={'154px'} h={'228px'} sx={{
+    boxShadow: `
+      0px 1px 3px 0px #0000001A,
+      0px 6px 6px 0px #00000017,
+      0px 13px 8px 0px #0000000D,
+      0px 23px 9px 0px #00000003,
+      0px 36px 10px 0px #00000000
+    `,
+    backdropFilter: "blur(20px)",
+  }}/>
+                    <Text fontSize={'18px'} color={'#153F45'}>نام کتاب</Text>
+                    <Text fontSize={'12px'} color={'#153F45'}>جلد 1</Text>
+                    </VStack>
+                    <VStack alignItems={'start'} color={'#153F45'} >
+                    <Image src='/book_cat.png' w={'154px'} h={'228px'} sx={{
+    boxShadow: `
+      0px 1px 3px 0px #0000001A,
+      0px 6px 6px 0px #00000017,
+      0px 13px 8px 0px #0000000D,
+      0px 23px 9px 0px #00000003,
+      0px 36px 10px 0px #00000000
+    `,
+    backdropFilter: "blur(20px)",
+  }}/>
+                    <Text fontSize={'18px'} color={'#153F45'}>نام کتاب</Text>
+                    <Text fontSize={'12px'} color={'#153F45'}>جلد 1</Text>
+                    </VStack>
+                    <VStack alignItems={'start'} color={'#153F45'} >
+                    <Image src='/book_cat.png' w={'154px'} h={'228px'} sx={{
+    boxShadow: `
+      0px 1px 3px 0px #0000001A,
+      0px 6px 6px 0px #00000017,
+      0px 13px 8px 0px #0000000D,
+      0px 23px 9px 0px #00000003,
+      0px 36px 10px 0px #00000000
+    `,
+    backdropFilter: "blur(20px)",
+  }}/>
+                    <Text fontSize={'18px'} color={'#153F45'}>نام کتاب</Text>
+                    <Text fontSize={'12px'} color={'#153F45'}>جلد 1</Text>
+                    </VStack>
+                    <VStack alignItems={'start'} color={'#153F45'} >
+                    <Image src='/book_cat.png' w={'154px'} h={'228px'} sx={{
+    boxShadow: `
+      0px 1px 3px 0px #0000001A,
+      0px 6px 6px 0px #00000017,
+      0px 13px 8px 0px #0000000D,
+      0px 23px 9px 0px #00000003,
+      0px 36px 10px 0px #00000000
+    `,
+    backdropFilter: "blur(20px)",
+  }}/>
+                    <Text fontSize={'18px'} color={'#153F45'}>نام کتاب</Text>
+                    <Text fontSize={'12px'} color={'#153F45'}>جلد 1</Text>
+                    </VStack>
+                    <VStack alignItems={'start'} color={'#153F45'} >
+                    <Image src='/book_cat.png' w={'154px'} h={'228px'} sx={{
+    boxShadow: `
+      0px 1px 3px 0px #0000001A,
+      0px 6px 6px 0px #00000017,
+      0px 13px 8px 0px #0000000D,
+      0px 23px 9px 0px #00000003,
+      0px 36px 10px 0px #00000000
+    `,
+    backdropFilter: "blur(20px)",
+  }}/>
+                    <Text fontSize={'18px'} color={'#153F45'}>نام کتاب</Text>
+                    <Text fontSize={'12px'} color={'#153F45'}>جلد 1</Text>
+                    </VStack>
+                    <VStack alignItems={'start'} color={'#153F45'} >
+                    <Image src='/book_cat.png' w={'154px'} h={'228px'} sx={{
+    boxShadow: `
+      0px 1px 3px 0px #0000001A,
+      0px 6px 6px 0px #00000017,
+      0px 13px 8px 0px #0000000D,
+      0px 23px 9px 0px #00000003,
+      0px 36px 10px 0px #00000000
+    `,
+    backdropFilter: "blur(20px)",
+  }}/>
+                    <Text fontSize={'18px'} color={'#153F45'}>نام کتاب</Text>
+                    <Text fontSize={'12px'} color={'#153F45'}>جلد 1</Text>
+                    </VStack>
+                    <VStack alignItems={'start'} color={'#153F45'} >
+                    <Image src='/book_cat.png' w={'154px'} h={'228px'} sx={{
+    boxShadow: `
+      0px 1px 3px 0px #0000001A,
+      0px 6px 6px 0px #00000017,
+      0px 13px 8px 0px #0000000D,
+      0px 23px 9px 0px #00000003,
+      0px 36px 10px 0px #00000000
+    `,
+    backdropFilter: "blur(20px)",
+  }}/>
+                    <Text fontSize={'18px'} color={'#153F45'}>نام کتاب</Text>
+                    <Text fontSize={'12px'} color={'#153F45'}>جلد 1</Text>
+                    </VStack>
+                    </Grid>
+
+                </VStack>
+        </Box>
+          
       </Box>
     </Container>
   )
