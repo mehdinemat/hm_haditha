@@ -10,16 +10,16 @@ import { useEffect } from 'react';
 
 
 const menuList = [
-  { title: 'صفحه اصلی', icon: '/home-2.png', active_icon: '/home-2.png', link: '/' },
+  { title: 'صفحه اصلی', icon: '/home-22.png', active_icon: '/home-2.png', link: '/' },
   // { title: 'جستجو', icon: './home_2.png', link: '/search' },
   { title: 'چت بات', icon: '/message.png', active_icon: '/message_active.png', link: '/chatbot' },
   { title: 'کتابخانه', icon: '/book.png', active_icon: '/book_active.png', link: '/library' },
 ]
 
 const menuList2 = [
-  { title: '', icon: '/search_normal.png', link: '/chatbot' },
-  { title: '', icon: '/save.png', link: '/' },
-  { title: '', icon: '/logout.png', link: '/' },
+  { title: '', icon: '/search_normal.png', link: '/search' },
+  { title: '', icon: '/save.png', link: '/bookmarks' },
+  { title: '', icon: '/logout.png', link: '/login' },
   { title: '', icon: '/menu.png', link: '/' },
 ]
 
@@ -57,27 +57,31 @@ const Header = () => {
       <Flex justify="space-between" align="center" height='100%'>
         <Flex as={HStack} justifyContent={'space-between'} gap={4} w={'100%'} height='100%'>
           <HStack gap={'20px'}>
-            <Image src='/logo_h_2.png' height={'58px'} w={'58px'} />
+            <Image src='/logo_h_2.png' height={'58px'} w={'58px'} onClick={e => handleLinkClick('/')} cursor={'pointer'} />
             {
               menuList?.map((item) => (
                 <Button
-                  bg={"linear-gradient(334.96deg, #29D3D9 -16%, #319CAA 103.19%)"}
-                  boxShadow="
-    1px 1px 3px 0px #0000000D,
-    3px 4px 5px 0px #0000000A,
-    6px 9px 6px 0px #00000008,
-    11px 15px 8px 0px #00000003,
-    18px 24px 8px 0px #00000000
-  "
+                  bg={location.pathname != item?.link ? '' : "linear-gradient(334.96deg, #29D3D9 -16%, #319CAA 103.19%)"}
+                  boxShadow={
+                    location.pathname == item?.link
+                      ? `1px 1px 3px 0px #0000000D,
+         3px 4px 5px 0px #0000000A,
+         6px 9px 6px 0px #00000008,
+         11px 15px 8px 0px #00000003,
+         18px 24px 8px 0px #00000000`
+                      : "none"
+                  }
                   leftIcon={
                     <Image
-                      src={item?.active_icon}  // put your image path here
+                      src={location.pathname != item?.link ? item?.icon : item?.active_icon}  // put your image path here
                       alt="logo"
                       boxSize="20px"
                     />
                   }
                   borderRadius={'12px'}
                   height={'48px'}
+                  color={location.pathname != item?.link ? '#153F45' : 'white'}
+                  onClick={e => handleLinkClick(item?.link)}
                 >
                   {item?.title}
                 </Button>
@@ -91,7 +95,7 @@ const Header = () => {
                   src={item?.icon}  // put your image path here
                   alt="logo"
                   boxSize="20px"
-                />} />
+                />} onClick={e => handleLinkClick(item?.link)} />
               ))
             }
           </HStack>

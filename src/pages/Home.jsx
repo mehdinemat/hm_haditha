@@ -8,7 +8,7 @@ import Exprience from '../components/Home/Exprience'
 const Home = () => {
   return (
     <>
-      <Container maxW="container.lg">
+      <Container maxW="container.lg" height={'auto'} minH={'calc( 100vh - 110px )'} >
         <Header />
         <SearchBox />
       </Container>

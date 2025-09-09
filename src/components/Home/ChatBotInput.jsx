@@ -22,12 +22,12 @@ import { GrAttachment } from "react-icons/gr";
 import { RiVoiceprintFill } from "react-icons/ri";
 import { WiStars } from "react-icons/wi";
 
-export default function ChatInput() {
+export default function ChatBotInput({ submit }) {
   const [value, setValue] = useState("");
   const maxChars = 500;
 
   return (
-    <Box w="100%" maxW="600px" mx="auto" mt={'40px'}>
+    <Box w="100%" maxW="600px" mx="auto">
       {/* Textarea container */}
       <Box position="relative">
         <Textarea
@@ -90,6 +90,7 @@ export default function ChatInput() {
               <VscSend />
             </Box>}
             isDisabled={value.trim() === ""}
+            onClick={e=>submit(value)}
           />
         </Flex>
       </Box>

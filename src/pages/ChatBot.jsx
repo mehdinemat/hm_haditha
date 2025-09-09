@@ -6,14 +6,17 @@ import { LuNotepadTextDashed } from "react-icons/lu";
 import { FaLayerGroup } from "react-icons/fa6";
 import { HiHashtag } from "react-icons/hi2";
 import { useNavigate } from 'react-router-dom';
+import useSWR from 'swr';
 
 const ChatBot = () => {
 
+    const { data, isLoading } = useSWR(`user/chat/session`)
+
     const navigate = useNavigate()
 
-    const handleCilckStartConv = ()=>{
+    const handleCilckStartConv = () => {
         navigate(`/chatbot/0`)
-    }   
+    }
 
     return (
         <Container maxW="672px">

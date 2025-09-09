@@ -10,7 +10,7 @@ const api = axios.create({
 
 // Request interceptor to add the Authorization token to request headers
 api.interceptors.request.use(config => {
-  const token = localStorage.getItem("tokencameratracker");
+  const token = localStorage.getItem("token");
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
@@ -24,7 +24,6 @@ api.interceptors.response.use(response => {
   return response;
 }, error => {
   if (error.response && error.response.status === 401) {
-    localStorage.removeItem('tokencameratracker');
     window.location.reload();
   }
   return Promise.reject(error);

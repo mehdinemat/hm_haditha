@@ -18,6 +18,7 @@ import { QueryParamProvider } from 'use-query-params';
 import ChatBotConv from './pages/ChatBotConv'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import VerifyCode from './pages/VerifyCode'
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
               <Route path="/hadith/:id" element={<HadithDetails />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/verify_code" element={<VerifyCode />} />
 
               {/* <Route path='/chatbot' element={<ChatBot />} /> */}
               <Route path='/chatbot' element={<ChatBotConv />} />

@@ -11,9 +11,9 @@ const Layout = ({ children }) => {
   return (
     <Box backgroundImage="url('/bg.png')"
       backgroundSize="contain"
-      backgroundPosition="start" height={'100vh'}>
+      backgroundPosition="start" height={'auto'}>
       {slidesToShow == 1 ? <HeaderMobile /> : <Header />}
-      <Box overflow={'hidden'}>
+      <Box overflowX={'hidden'}>
         {/* Ensure content doesn't go under the fixed header */}
         <Outlet />
       </Box>

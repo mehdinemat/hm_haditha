@@ -6,20 +6,63 @@ import { LuNotepadTextDashed } from "react-icons/lu";
 import { FaArrowUpRightFromSquare, FaLayerGroup } from "react-icons/fa6";
 import { HiHashtag } from "react-icons/hi2";
 import ChatBot from './ChatBot';
-import SearchBox from '../components/Home/SearchBox'
+import ChatBotInput from '../components/Home/ChatBotInput'
 import { PiSpeakerSimpleLowLight } from 'react-icons/pi';
 import { AiOutlineDislike, AiOutlineFileSearch, AiOutlineLike } from 'react-icons/ai';
 import { RxCopy } from 'react-icons/rx';
 import { CiFolderOn } from 'react-icons/ci';
 import { GoHistory } from 'react-icons/go';
+import useSWR from 'swr';
+import useSWRMutation from 'swr/mutation';
+import api from '../components/lib/api';
+import { StringParam, useQueryParams, withDefault } from 'use-query-params';
 
-const chatList = [
-  { title: 'new_conv', label: 'گفتگوی جدید', icon: IoAdd },
-  { title: 'explore', label: 'کاوش', icon: AiOutlineFileSearch },
-  { title: 'files', label: 'فایل ها', icon: CiFolderOn },
-]
+
+const postRequest = (url, { arg: { id, ...data } }) => {
+  return api.post(url + (id ? `${id}` : ''), data)
+}
+
 
 const ChatBotConv = () => {
+
+
+  const [filters, setFilters] = useQueryParams({
+    chat: withDefault(StringParam, '')
+  })
+
+  const { data: dataSession, isLoading: isLoadingSession } = useSWR(`user/chat/session`)
+
+  const { data: dataChat, isLoading: isLoadingChat } = useSWR(filters?.chat && `/user/chat/${filters?.chat}`)
+
+  const { trigger: triggerChat, isMutating: isMutatingChat } = useSWRMutation(`/user/chat/`, postRequest)
+
+  const { trigger: triggerNewChat } = useSWRMutation(`/user/chat/session`, postRequest, {
+    onSuccess: (data) => {
+      console.log(data?.data?.data?.session_id)
+      // triggerNewChat({data})
+    }
+  })
+
+  const { trigger: triggerNewSession } = useSWRMutation(`/user/chat/session`, postRequest)
+
+  const handleCreateNewChat = () => {
+    triggerNewChat()
+  }
+
+  const chatList = [
+    { title: 'new_conv', label: 'گفتگوی جدید', icon: IoAdd, function: handleCreateNewChat },
+    { title: 'explore', label: 'کاوش', icon: AiOutlineFileSearch },
+    { title: 'files', label: 'فایل ها', icon: CiFolderOn },
+  ]
+
+  const handleSelectChat = (id) => {
+    setFilters({ chat: id })
+    console.log(id)
+  }
+
+  const SubmitChat = (content) => {
+    triggerChat({ content, id: filters?.chat })
+  }
 
   return (
     <Container maxW="1200px" px={'30px'}>
@@ -32,6 +75,7 @@ const ChatBotConv = () => {
                 variant="ghost"
                 justifyContent="flex-start"
                 leftIcon={<Icon as={item.icon} />}
+                onClick={item?.function}
                 bgColor={'#FFFFFD80'}
                 w={'100%'}
                 borderRadius="12px"
@@ -65,19 +109,14 @@ const ChatBotConv = () => {
               <GoHistory color={'#153F4566'} />
               <Text color={'#153F4566'} fontSize={'11px'}>تاریخچه گفتگوها</Text>
             </HStack>
-
-            <HStack w={'100%'} justifyContent={'space-between'} mt={'10px'}>
-              <Text fontSize={'11px'} color={'#153F45'}>خلاصه حدیث 1</Text>
-              <IoEllipsisHorizontal color={'#153F45'} />
-            </HStack>
-            <HStack w={'100%'} justifyContent={'space-between'} mt={'6px'}>
-              <Text fontSize={'11px'} color={'#153F45'}>خلاصه حدیث 1</Text>
-              <IoEllipsisHorizontal color={'#153F45'} />
-            </HStack>
-            <HStack w={'100%'} justifyContent={'space-between'} mt={'6px'}>
-              <Text fontSize={'11px'} color={'#153F45'}>خلاصه حدیث 1</Text>
-              <IoEllipsisHorizontal color={'#153F45'} />
-            </HStack>
+            {
+              dataSession?.data?.chat_sessions?.map((item) => (
+                <HStack w={'100%'} justifyContent={'space-between'} mt={'10px'} cursor={'pointer'} onClick={e => handleSelectChat(item?.id)} bgColor={filters?.chat == item?.id ? 'gray.200' : 'none'} padding={'5px'} borderRadius={'10px'}>
+                  <Text fontSize={'11px'} color={'#153F45'}>{item?.title || 'بدون عنوان'}</Text>
+                  <IoEllipsisHorizontal color={'#153F45'} />
+                </HStack>
+              ))
+            }
 
           </Box>
           <Button
@@ -103,7 +142,7 @@ const ChatBotConv = () => {
             <Text fontSize={'11px'}>محمدعلی نوریزاده</Text>
             <IoIosArrowBack />
           </Button>
-        </VStack>
+        </VStack >
         <VStack justify="center" align="end" p={8} mt={'80px'} mb={'30px'} height={'calc( 100vh - 150px )'} gap={'12px'} alignItems={'start'} w={'600px'}   >
           <Box as={VStack} bgColor={'#FFFFFD80'} sx={{
             borderImageSource:
@@ -148,10 +187,10 @@ const ChatBotConv = () => {
               </Text>
             </Box>
           </Box>
-          <SearchBox />
+          <ChatBotInput submit={SubmitChat} />
         </VStack >
-      </HStack>
-    </Container>
+      </HStack >
+    </Container >
   )
 }
 
